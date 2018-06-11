@@ -1,30 +1,17 @@
  #!/bin/bash
-  declare PACKAGES=("apt-get install mysql"  "apt-get install php7"  "/etc/fstab"  "/etc/inittab"  "/etc/mtab")
-     NUM_PACKAGES=${#PACKAGES[*]} # no. of packages to update (#packages in the array $PACKAGES)
-  step=$((100/$NUM_PACKAGES))  # progress bar step
-   cur_file_idx=0
-   counter=0
- DEST=${HOME}
-    (
-    # infinite while loop
-    while :
-  do
-  cat <<EOF
-  XXX
- $counter
-   $counter% upgraded
+declare PACKAGES=("apt-get install mysql"  "apt-get install php7")
+ show_dialog()
+{
+    p=$PACKAGES             # percentage
+    date1=`date +%s`
+    while [ "$p" != 100 ]; do
+        read -t 1 tmp && p=$tmp
+        elapsed="$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)"
+        echo $p | dialog --title "File upgrade" --gauge "Please wait...\n\n\n\n$elapsed" 10 70 0
+    done
+}
 
-   $COMMAND
-   XXX
-   EOF
-       COMMAND="cp ${PACKAGES[$cur_file_idx]} $DEST &>/dev/null" # sets/updates command to exec.
-      [[ $NUM_PACKAGES -lt $cur_file_idx ]] && $COMMAND # executes command
+task()              # fake task
+{ for p in `seq 1 100`; do echo $p; sleep 2; done; }
 
-   (( cur_file_idx+=1 )) # increase counter
-     (( counter+=step ))
-   [ $counter -gt 100 ] && break  # break when reach the 100% (or greater
-                               # since Bash only does integer arithmetic)
-   sleep 10 # delay it a specified amount of time i.e. 1 sec
- done
-     ) |
-      dialog --title "File upgrade" --gauge "Please wait..." 10 70 0
+task | show_dialog
