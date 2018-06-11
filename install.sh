@@ -1,23 +1,15 @@
- #!/bin/bash
-pass='apt-get install php7 apt-get mysql'
-chk='number14'
-max=0
-for i in $pass ; do
-    let max=$max+1
-done
-index=0
-strdone="#########################"
-strtodo="-------------------------"
-for i in $pass ; do
-    let index=$index+1
-    if [ "$i" == "$chk" ]; then
-        echo ""
-        echo ' Found ^_^'
-    else
-        lendone=$((index * ${#strdone} / max))
-        let lentodo=${#strdone}-$lendone
-        percent=$((index * 100 / max))
-        echo -ne "[#${strdone:0:$lendone}${strtodo:0:$lentodo}] $percent%\r"
-    fi
-    sleep 1
+#!/bin/bash
+
+LIST="apt-get install mysql apt-get install php7-dev "             #Note that there is a different when we 
+INT=1                                          #use (),"",'' .Maybe Ill explain in diff. post  
+CNT=0                
+
+for NIM in ${LIST}                         #For function  as controlling loop
+do
+    
+    len=$(echo ${LIST} | wc -w)             #"wc"command is used print new line
+    echo -en "\b\b\b$(($NIM*100/$len))%" 
+    sleep $INT
+    
+
 done
