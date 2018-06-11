@@ -1,23 +1,22 @@
 
-#!/bin/bash
-# dvdcopy.sh - A sample shell script to display a progress bar
-# set counter to 0 
-counter=0
+#!/bin/sh
 (
-# set infinite while loop
-while :
-do
-cat <<EOF
-XXX
-$counter
-Disk copy /dev/dvd to /home/data ( $counter%):
-XXX
-EOF
-# increase counter by 10
-(( counter+=10 ))
-[ $counter -eq 100 ] && break
-# delay it a specified amount of time i.e 1 sec
-sleep 1
-done
+  echo "10" ; sleep 1
+  echo "# apt-get install mysql" ; sleep 1
+  echo "20" ; sleep 1
+  echo "# apt-get install php7" ; sleep 1
+  echo "50" ; sleep 1
+  echo "This line will just be ignored" ; sleep 1
+  echo "75" ; sleep 1
+  echo "# Rebooting system" ; sleep 1
+  echo "100" ; sleep 1
 ) |
-dialog --title "File Copy" --gauge "Please wait" 7 70 0
+zenity --progress \
+  --title="Update System Logs" \
+  --text="Scanning mail logs..." \
+  --percentage=0
+ 
+if [ "$?" = -1 ] ; then
+  zenity --error \
+    --text="Update canceled."
+fi
