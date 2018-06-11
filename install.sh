@@ -1,15 +1,30 @@
 #!/bin/bash
 
-LIST="apt-get install mysql apt-get install php7-dev "             #Note that there is a different when we 
-INT=1                                          #use (),"",'' .Maybe Ill explain in diff. post  
-CNT=0                
+set -eu -o pipefail # fail on error , debug all lines
 
-for NIM in ${LIST}                         #For function  as controlling loop
-do
-    
-    len=$(echo ${LIST} | wc -w)             #"wc"command is used print new line
-    echo -en "\b\b\b$(($NIM*100/$len))%" 
-    sleep $INT
-    
+sudo -n true
+test $? -eq 0 || exit 1 "you should have sudo priveledge to run this script"
 
-done
+echo installing the must-have pre-requisites
+while read -r p ; do sudo apt-get install -y $p ; done < <(cat << "EOF"
+    perl
+    zip unzip
+    exuberant-ctags
+    mutt
+    libxml-atom-perl
+    postgresql-9.6
+    libdbd-pgsql
+    curl
+    wget
+    libwww-curl-perl
+EOF
+)
+
+echo installing the nice-to-have pre-requisites
+echo you have 5 seconds to proceed ...
+echo or
+echo hit Ctrl+C to quit
+echo -e "\n"
+sleep 6
+
+sudo apt-get install -y tig
