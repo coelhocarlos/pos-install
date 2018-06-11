@@ -2,31 +2,15 @@
 #!/bin/bash
 # dvdcopy.sh - A sample shell script to display a progress bar
 # set counter to 0 
-set -eu -o pipefail # fail on error , debug all lines
-
-sudo -n true
-test $? -eq 0 || exit 1 "you should have sudo priveledge to run this script"
-
-echo installing the must-have pre-requisites
 counter=0
 (
 # set infinite while loop
 while :
 do
-while read -r p ; do sudo apt-get install -y $p ; done < <( cat <<"EOF"
+cat <<EOF
+XXX
 $counter
-perl
-    zip unzip
-    exuberant-ctags
-    mutt
-    libxml-atom-perl
-    postgresql-9.6
-    libdbd-pgsql
-    curl
-    wget
-    libwww-curl-perl
-    EOF
- ( $counter%):
+Disk copy /dev/dvd to /home/data ( $counter%):
 XXX
 EOF
 # increase counter by 10
