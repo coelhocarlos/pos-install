@@ -1,22 +1,34 @@
 
-#!/bin/sh
-(
-  echo "10" ; sleep 1
-  echo "# apt-get install mysql" ; sleep 1
-  echo "20" ; sleep 1
-  echo "# apt-get install php7" ; sleep 1
-  echo "50" ; sleep 1
-  echo "This line will just be ignored" ; sleep 1
-  echo "75" ; sleep 1
-  echo "# Rebooting system" ; sleep 1
-  echo "100" ; sleep 1
-) |
-zenity --progress \
-  --title="Update System Logs" \
-  --text="Scanning mail logs..." \
-  --percentage=0
- 
-if [ "$?" = -1 ] ; then
-  zenity --error \
-    --text="Update canceled."
-fi
+#!/bin/bash
+
+HEIGHT=15
+WIDTH=40
+CHOICE_HEIGHT=4
+BACKTITLE="Backtitle here"
+TITLE="Title here"
+MENU="Choose one of the following options:"
+
+OPTIONS=(1 "Option 1"
+         2 "Option 2"
+         3 "Option 3")
+
+CHOICE=$(dialog --clear \
+                --backtitle "$BACKTITLE" \
+                --title "$TITLE" \
+                --menu "$MENU" \
+                $HEIGHT $WIDTH $CHOICE_HEIGHT \
+                "${OPTIONS[@]}" \
+                2>&1 >/dev/tty)
+
+clear
+case $CHOICE in
+        1)
+            echo "You chose Option 1"
+            ;;
+        2)
+            echo "You chose Option 2"
+            ;;
+        3)
+            echo "You chose Option 3"
+            ;;
+esac
