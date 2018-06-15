@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 #     INSTALL SOFTWARE UNUNTU 18.04
 #     
@@ -13,10 +14,7 @@ if [[ -r /etc/os-release ]]; then
     if [[ $ID = ubuntu ]]; then
         read _ UBUNTU_VERSION_NAME <<< "$VERSION"
         echo "Running Ubuntu $UBUNTU_VERSION_NAME"
-############################################
-#                 MYSQL
-############################################
-# clear the screen
+        # clear the screen
 tput clear
  
 # Move cursor to screen location X,Y (top left is 0,0)
@@ -24,7 +22,7 @@ tput cup 3 15
  
 # Set a foreground colour using ANSI escape
 tput setaf 3
-echo ZOMBIE THE ZER0 Trademarc ."
+echo "XYX Corp LTD."
 tput sgr0
  
 tput cup 5 17
@@ -34,7 +32,7 @@ echo "M A I N - M E N U"
 tput sgr0
  
 tput cup 7 15
-echo "1. Install"
+echo "1. User Management"
  
 tput cup 8 15
 echo "2. Service Management"
@@ -59,5 +57,6 @@ tput rc
 else
     echo "Not running a distribution with /etc/os-release available"
 fi
+
 
 
