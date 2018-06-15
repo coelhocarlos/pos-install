@@ -43,7 +43,8 @@ tput cup 10 15
 echo "4 ..... QUIT"
 
 echo ""
-
+tput bold
+tput cup 12 15
 echo "Select item: "
 
 #loop around gathering input until QUIT is more than 0
@@ -113,6 +114,8 @@ fi
 tput reset
 
 tput clear
+tput sgr0
+tput rc
     else
         echo "Not running an Ubuntu distribution. ID=$ID, VERSION=$VERSION"
     fi
