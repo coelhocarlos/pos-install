@@ -17,19 +17,29 @@ if [[ -r /etc/os-release ]]; then
         
 #tput setb 3 #Green in xterm and brown in linux terminal
 tput clear
-#paint menu onto the screen
+# Set a foreground colour using ANSI escape
+tput setaf 3
+echo "XYX Corp LTD."
+tput sgr0
+ 
+tput cup 5 17
+# Set reverse video mode
+tput rev
+echo "M A I N - M E N U"
+tput sgr0
 echo ""
 
 echo ""
 
 echo "TEST MENU"
 
+tput cup 7 15
 echo "1 ..... ECHO 1"
-
+tput cup 8 15
 echo "2 ..... ECHO 2"
-
+tput cup 9 15
 echo "3 ..... ECHO 3"
-
+tput cup 10 15
 echo "4 ..... QUIT"
 
 echo ""
