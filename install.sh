@@ -1,71 +1,63 @@
-#!/bin/sh
-#created
-show_menu(){
-    NORMAL=`echo "\033[m"`
-    MENU=`echo "\033[36m"` #Blue
-    NUMBER=`echo "\033[33m"` #yellow
-    FGRED=`echo "\033[41m"`
-    RED_TEXT=`echo "\033[31m"`
-    ENTER_LINE=`echo "\033[33m"`
-    echo -e "${MENU}*********************************************${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 1)${MENU} Mount dropbox ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 2)${MENU} Mount USB 500 Gig Drive ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 3)${MENU} Restart Apache ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 4)${MENU} ssh Frost TomCat Server ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 5)${MENU} ${NORMAL}"
-    echo -e "${MENU}*********************************************${NORMAL}"
-    echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT}enter to exit. ${NORMAL}"
-    read opt
-}
-function option_picked() {
-    COLOR='\033[01;31m' # bold red
-    RESET='\033[00;00m' # normal white
-    MESSAGE=${@:-"${RESET}Error: No message passed"}
-    echo -e "${COLOR}${MESSAGE}${RESET}"
-}
+#
+#     INSTALL SOFTWARE UNUNTU 18.04
+#     
+#
+# Set a foreground colour using ANSI escape
+# clear the screen
 
-clear
-show_menu
-while [ opt != '' ]
-    do
-    if [[ $opt = "" ]]; then 
-            exit;
+############################################
+#          Check Compatbility
+############################################
+if [[ -r /etc/os-release ]]; then
+    . /etc/os-release
+    if [[ $ID = ubuntu ]]; then
+        read _ UBUNTU_VERSION_NAME <<< "$VERSION"
+        echo "Running Ubuntu $UBUNTU_VERSION_NAME"
+############################################
+#                 MYSQL
+############################################
+# clear the screen
+tput clear
+ 
+# Move cursor to screen location X,Y (top left is 0,0)
+tput cup 3 15
+ 
+# Set a foreground colour using ANSI escape
+tput setaf 3
+echo ZOMBIE THE ZER0 Trademarc ."
+tput sgr0
+ 
+tput cup 5 17
+# Set reverse video mode
+tput rev
+echo "M A I N - M E N U"
+tput sgr0
+ 
+tput cup 7 15
+echo "1. Install"
+ 
+tput cup 8 15
+echo "2. Service Management"
+ 
+tput cup 9 15
+echo "3. Process Management"
+ 
+tput cup 10 15
+echo "4. Backup"
+ 
+# Set bold mode
+tput bold
+tput cup 12 15
+read -p "Enter your choice [1-4] " choice
+ 
+tput clear
+tput sgr0
+tput rc
     else
-        case $opt in
-        1) clear;
-        option_picked "Option 1 Picked";
-        sudo mount /dev/sdh1 /mnt/DropBox/; #The 3 terabyte
-        menu;
-        ;;
-
-        2) clear;
-            option_picked "Option 2 Picked";
-            sudo mount /dev/sdi1 /mnt/usbDrive; #The 500 gig drive
-        menu;
-            ;;
-
-        3) clear;
-            option_picked "Option 3 Picked";
-        sudo service apache2 restart;
-            show_menu;
-            ;;
-
-        4) clear;
-            option_picked "Option 4 Picked";
-        ssh lmesser@ -p 2010;
-            show_menu;
-            ;;
-
-        x)exit;
-        ;;
-
-        \n)exit;
-        ;;
-
-        *)clear;
-        option_picked "Pick an option from the menu";
-        show_menu;
-        ;;
-    esac
+        echo "Not running an Ubuntu distribution. ID=$ID, VERSION=$VERSION"
+    fi
+else
+    echo "Not running a distribution with /etc/os-release available"
 fi
-done
+
+
