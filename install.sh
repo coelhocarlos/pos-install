@@ -45,11 +45,9 @@ echo "4 Backup"
 # Set bold mode
 tput bold
 tput cup 12 15
-read -p "Enter your choice [1-4] " choice
+#read -p "Enter your choice [1-4] " choice
 echo ""
-
 echo "Select item: "
-
 #loop around gathering input until QUIT is more than 0
 
 QUIT=0
