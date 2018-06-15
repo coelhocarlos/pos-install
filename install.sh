@@ -14,12 +14,10 @@ if [[ -r /etc/os-release ]]; then
     if [[ $ID = ubuntu ]]; then
         read _ UBUNTU_VERSION_NAME <<< "$VERSION"
         echo "Running Ubuntu $UBUNTU_VERSION_NAME"
-        # clear the screen
+tput setb 5
+# clear the screen
 tput clear
- 
-# Move cursor to screen location X,Y (top left is 0,0)
-tput cup 3 15
- 
+
 # Set a foreground colour using ANSI escape
 tput setaf 3
 echo "XYX Corp LTD."
@@ -47,6 +45,7 @@ echo "4. Backup"
 tput bold
 tput cup 12 15
 read -p "Enter your choice [1-4] " choice
+
  
 tput clear
 tput sgr0
