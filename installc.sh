@@ -1,70 +1,66 @@
-#!/bin/sh
-show_menu(){
-    NORMAL=`echo "\033[m"`
-    MENU=`echo "\033[36m"` #Blue
-    NUMBER=`echo "\033[33m"` #yellow
-    FGRED=`echo "\033[41m"`
-    RED_TEXT=`echo "\033[31m"`
-    ENTER_LINE=`echo "\033[33m"`
-    echo -e "${MENU}*********************************************${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 1)${MENU} Mount dropbox ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 2)${MENU} Mount USB 500 Gig Drive ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 3)${MENU} Restart Apache ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 4)${MENU} ssh Frost TomCat Server ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 5)${MENU} ${NORMAL}"
-    echo -e "${MENU}*********************************************${NORMAL}"
-    echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT}enter to exit. ${NORMAL}"
-    read opt
-}
-function option_picked(){
-    COLOR='\033[01;31m' # bold red
-    RESET='\033[00;00m' # normal white
-    MESSAGE=${@:-"${RESET}Error: No message passed"}
-    echo -e "${COLOR}${MESSAGE}${RESET}"
+#!/bin/bash
+# A menu driven shell script sample template 
+## ----------------------------------
+# Step #1: Define variables
+# ----------------------------------
+EDITOR=vim
+PASSWD=/etc/passwd
+RED='\033[0;41;30m'
+STD='\033[0;0;39m'
+ 
+# ----------------------------------
+# Step #2: User defined function
+# ----------------------------------
+pause(){
+  read -p "Press [Enter] key to continue..." fackEnterKey
 }
 
-clear
-show_menu
-while [ opt != '' ]
-    do
-    if [[ $opt = "" ]]; then 
-            exit;
-    else
-        case $opt in
-        1) clear;
-        option_picked "Option 1 Picked";
-        sudo mount /dev/sdh1 /mnt/DropBox/; #The 3 terabyte
-        menu;
-        ;;
-
-        2) clear;
-            option_picked "Option 2 Picked";
-            sudo mount /dev/sdi1 /mnt/usbDrive; #The 500 gig drive
-        menu;
-            ;;
-
-        3) clear;
-            option_picked "Option 3 Picked";
-        sudo service apache2 restart;
-            show_menu;
-            ;;
-
-        4) clear;
-            option_picked "Option 4 Picked";
-        ssh lmesser@ -p 2010;
-            show_menu;
-            ;;
-
-        x)exit;
-        ;;
-
-        \n)exit;
-        ;;
-
-        *)clear;
-        option_picked "Pick an option from the menu";
-        show_menu;
-        ;;
-    esac
-fi
-done
+one(){
+	echo "one() called"
+        pause
+}
+ 
+# do something in two()
+two(){
+	echo "two() called"
+        pause
+}
+ 
+# function to display menus
+show_menus() {
+	clear
+	echo "~~~~~~~~~~~~~~~~~~~~~"	
+	echo " M A I N - M E N U"
+	echo "~~~~~~~~~~~~~~~~~~~~~"
+	echo "1. Set Terminal"
+	echo "2. Reset Terminal"
+	echo "3. Exit"
+}
+# read input from the keyboard and take a action
+# invoke the one() when the user select 1 from the menu option.
+# invoke the two() when the user select 2 from the menu option.
+# Exit when user the user select 3 form the menu option.
+read_options(){
+	local choice
+	read -p "Enter choice [ 1 - 3] " choice
+	case $choice in
+		1) one ;;
+		2) two ;;
+		3) exit 0;;
+		*) echo -e "${RED}Error...${STD}" && sleep 2
+	esac
+}
+ 
+# ----------------------------------------------
+# Step #3: Trap CTRL+C, CTRL+Z and quit singles
+# ----------------------------------------------
+trap '' SIGINT SIGQUIT SIGTSTP
+ 
+# -----------------------------------
+# Step #4: Main logic - infinite loop
+# ------------------------------------
+while true
+do
+ 
+	show_menus
+	read_options
