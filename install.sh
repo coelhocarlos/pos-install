@@ -114,37 +114,37 @@ echo -e "${CYAN} MYSQL INSTALLED ${GREEN}Successfull"
 
 echo -e " ${BLUE} SAMBA INSTALL"
 echo -e  ${WHITE} 
-    sudo apt install samba wget 
-    sudo cp /etc/samba/smb.conf /etc/samba/smb.conf_backup
-    ls -al > /etc/samba/smb.conf
+        sudo apt install samba wget 
+        sudo cp /etc/samba/smb.conf /etc/samba/smb.conf_backup
+        ls -al > /etc/samba/smb.conf
     
-    sudo echo  "[wds_share]" >> /etc/samba/smb.conf
+        sudo echo  "[wds_share]" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/wds_share" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 
-    sudo echo "[imagens]" >> /etc/samba/smb.conf
+        sudo echo "[imagens]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/Imagens" >> /etc/samba/smb.conf
 	
-    sudo echo "[media]" >> /etc/samba/smb.conf
+        sudo echo "[media]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/Media" >> /etc/samba/smb.conf
 
-    sudo echo "[manutencao]" >> /etc/samba/smb.conf
+        sudo echo "[manutencao]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/Manutencao" >> /etc/samba/smb.conf
 	
-    sudo echo "[www]" >> /etc/samba/smb.conf
+        sudo echo "[www]" >> /etc/samba/smb.conf
 	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /var/www" >> /etc/samba/smb.conf
 
-    sudo echo "[programacao]" >> /etc/samba/smb.conf
+        sudo echo "[programacao]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/Programacao" >> /etc/samba/smb.conf
 
-    sudo echo "[clients]" >> /etc/samba/smb.conf
+        sudo echo "[clients]" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/Clientes" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
@@ -153,7 +153,7 @@ echo -e  ${WHITE}
 	sudo echo "path = /media/hd2000/torrent/torrent-push" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo service smbd restart
-    sudo bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
+        #sudo bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
 echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
 
 ################################################################################
@@ -162,7 +162,7 @@ echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
 
 echo -e " ${BLUE} PHPMYADMIN INSTALL"
 echo -e  ${WHITE} 
-sudo apt install -y phpmyadmin php-gettext wget
+    sudo apt install -y phpmyadmin php-gettext wget
 echo -e "${CYAN} PHPMYADMIN INSTALLED ${GREEN}Successfull"
 
 ################################################################################
@@ -282,21 +282,24 @@ echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
 #                                  UFW                                         #
 ################################################################################
 echo -e " $BLUE} UFW SET"
-sudo ufw allow 22/tcp
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
-sudo ufw allow 8080/tcp
-sudo ufw allow 69
-sudo ufw allow apache
-sudo ufw allow webmin
-sudo ufw allow samba
-sudo ufw allow php
-sudo ufw allow 32400
-sudo ufw allow 27015
-sudo ufw allow 25565
-sudo ufw allow 25567
-sudo ufw allow 1688
-sudo ufw enable 
+echo -e  ${WHITE} 
+    sudo ufw allow 22/tcp
+    sudo ufw allow 80/tcp
+    sudo ufw allow 443/tcp
+    sudo ufw allow 8080/tcp
+    sudo ufw allow 69
+    sudo ufw allow apache
+    sudo ufw allow webmin
+    sudo ufw allow samba
+    sudo ufw allow php
+    sudo ufw allow 32400
+    sudo ufw allow 27015
+    sudo ufw allow 25565
+    sudo ufw allow 25567
+    sudo ufw allow 1688
+    echo -e  ${RED} 
+    sudo ufw enable 
+    echo -e  ${WHITE}
 echo -e ${CYAN}"UFW SET   ${GREEN}ADDED Successful"
 ################################################################################
 #                               FINISH                                         #
