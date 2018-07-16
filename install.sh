@@ -18,6 +18,9 @@ tput setab 7
 ################################################################################
 #                               Start Script                                   #
 ################################################################################
+echo -e  "${BOLD}${GREEN} SET ROOT PASS"
+sudo passwd root
+echo -e  ${WHITE} 
 echo -e  ${YELLOW}
 cat /etc/*-release
 echo -e  ${RED}
@@ -32,7 +35,7 @@ sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
 #                                   UTEIS                                      #
 ################################################################################
 
-echo -e " ${BLUE} LIBRARIES INSTALL"
+echo -e "${BLUE} LIBRARIES INSTALL"
 echo -e  ${WHITE}
    
    sudo apt install -y  gcc wget
@@ -311,6 +314,12 @@ echo -e ${CYAN}"UFW SET   ${GREEN}ADDED Successful"
 ################################################################################
 echo -e  ${WHITE}
 sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
+
+read -r -p "Are you sure? [Y/n]" response
+ response=${response,,} # tolower
+ if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
+    shutdown -r 0
+ fi
 ################################################################################
 #                               CHECK PACKAGES                                 #
 ################################################################################
