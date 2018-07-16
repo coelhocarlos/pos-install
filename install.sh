@@ -1,127 +1,337 @@
-#!/bin/bash
 #
-#     INSTALL SOFTWARE UNUNTU 18.04
-#     
+#Date - 06/22/2018
+#Created by Carlos Coelho
+#Pos Install Ubuntu server 18.04
 #
-# Set a foreground colour using ANSI escape
-# clear the screen
+BLACK=`tput setaf 0`
+RED=`tput setaf 1`
+GREEN=`tput setaf 2`
+YELLOW=`tput setaf 3`
+BLUE=`tput setaf 4`
+MAGENTA=`tput setaf 5`
+CYAN=`tput setaf 6`
+#WHITE=`tput setaf 7`
 
-############################################
-#          Check Compatbility
-############################################
-if [[ -r /etc/os-release ]]; then
-    . /etc/os-release
-    if [[ $ID = ubuntu ]]; then
-        read _ UBUNTU_VERSION_NAME <<< "$VERSION"
-        echo "Running Ubuntu $UBUNTU_VERSION_NAME"
-        
-#tput setb 3 #Green in xterm and brown in linux terminal
-tput clear
-# Set a foreground colour using ANSI escape
-tput setaf 3
-echo "XYX Corp LTD."
-tput sgr0
- 
-tput cup 5 17
-# Set reverse video mode
-tput rev
-echo "M A I N - M E N U"
-tput sgr0
-echo ""
+BOLD=`tput bold`
+RESET=`tput sgr0`
+tput setab 7
+echo -e "${CYAN}################################################################################"
+echo -e "${CYAN}#                                $YELLOW}Start Script                    ${CYAN}#"
+echo -e "${CYAN}################################################################################"
+echo -e  ${WHITE}
+#sudo nano /etc/netplan/
+sudo netplan apply
+sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
 
-echo ""
+################################################################################
+#                                   UTEIS                                      #
+################################################################################
 
-echo "TEST MENU"
+echo -e " ${BLUE} LIBRARIES INSTALL"
+echo -e  ${WHITE}
+   
+   sudo apt install -y  gcc wget
+   sudo apt install -y  git wget
+   sudo apt install -y  make wget
+   sudo apt install -y  ntfs-3g wget
+   sudo apt install -y  testdisk wget
+   sudo apt install -y  iptraf wget
+   sudo apt install -y  genisoimage wget
+   sudo apt install -y  wimtools -wget
+   sudo apt install -y  cabextract -wget
+ln -s /usr/bin/genisoimage /usr/bin/mkisofs
+echo -e ${CYAN}"LIBRARIES INSTALLED --${GREEN} Successfull"
 
-tput cup 7 15
-echo "1 ..... ECHO 1"
-tput cup 8 15
-echo "2 ..... ECHO 2"
-tput cup 9 15
-echo "3 ..... ECHO 3"
-tput cup 10 15
-echo "4 ..... QUIT"
+################################################################################
+#                                  Webmin                                      #
+################################################################################
 
-echo ""
-tput bold
-tput cup 12 15
-echo "Select item: "
+echo -e " $BLUE} WEBMIN INSTALL"
+echo -e  ${WHITE} 
+   sudo apt install wget
+   wget -qO- http://www.webmin.com/jcameron-key.asc | sudo apt-key add
+   sudo add-apt-repository "deb http://download.webmin.com/download/repository sarge contrib"
+   sudo apt update
+   sudo apt -y install webmin
+echo -e ${CYAN}"WEBMIN   ${GREEN}INSTALLED Successful"
 
-#loop around gathering input until QUIT is more than 0
+################################################################################
+#                                   Apache                                     #
+################################################################################
 
-QUIT=0
+echo -e " ${BLUE} APACHE INSTALL"
+echo -e  ${WHITE} 
+sudo apt install apache2 wget
+    #sudo ufw app list 
+    sudo ufw allow 'Apache'
+    sudo mkdir -p /var/www/server 
+    sudo mkdir -p /var/www/public 
+    
+    sudo chown -R $zombie:$zombie /var/www/html 
+    sudo chown -R $zombie:$zombie /var/www/server 
+    sudo chown -R $zombie:$zombie /var/www/public 
 
-while [ $QUIT -lt 1 ]
+    sudo chmod -R 755 /var/www/html
+    sudo chmod -R 755 /var/www/public
+    sudo chmod -R 755 /var/www/server
+    sudo systemctl restart apache2
+    #sudo ufw status
+    #sudo systemctl status apache2
+echo -e " ${CYAN} APACHE INSTALLED ${GREEN}Successfull"
 
-do
+################################################################################
+#                                   PHP                                        #
+################################################################################
 
-   #Move cursor to after select message
+echo -e " ${BLUE} PHP 7.2 INSTALL"
+echo -e  ${WHITE} 
+    sudo apt install php7.2 libapache2-mod-php7.2 wget
+    sudo apt-get -y install php7.2-mysql php7.2-curl php7.2-gd php7.2-intl php-pear php-imagick php7.2-imap php-memcache  php7.2-pspell php7.2-recode php7.2-sqlite3 php7.2-tidy php7.2-xmlrpc php7.2-xsl php7.2-mbstring php-gettext || local ERROR=1
+    sudo systemctl restart apache2 
+    sudo apt-get -y install php7.2-opcache php-apcu
+    sudo systemctl restart apache2 
+    sudo a2enmod ssl 
+    sudo systemctl restart apache2
+    sudo a2ensite default-ssl
+    sudo systemctl restart apache2
+echo -e "${CYAN} PHP 7.2 INSTALLED ${GREEN}Successfull"
 
-   tput cup 8 13
+################################################################################
+#                                   MYSQL                                      #
+################################################################################
 
-   #Delete from cursor to end of line
+echo -e " ${BLUE} MYSQL INSTALL"
+echo -e  ${WHITE} 
+    sudo apt install -y mysql-server wget
+    sudo apt install -y mysql-client wget
+    #sudo mysql_secure_installation
+    sudo systemctl restart mysql.service
+echo -e "${CYAN} MYSQL INSTALLED ${GREEN}Successfull"
 
-   tput el
+################################################################################
+#                                   SAMBA                                      #
+################################################################################
 
-   read SEL
+echo -e " ${BLUE} SAMBA INSTALL"
+echo -e  ${WHITE} 
+    sudo apt install samba wget 
+    sudo cp /etc/samba/smb.conf /etc/samba/smb.conf_backup
+    ls -al > /etc/samba/smb.conf
+    
+    sudo echo  "[wds_share]" >> /etc/samba/smb.conf
+	sudo echo "path = /media/hd2000/wds_share" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 
-   if [ ${#SEL} -lt 1 ]
+    sudo echo "[imagens]" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "path = /media/hd2000/Imagens" >> /etc/samba/smb.conf
+	
+    sudo echo "[media]" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "path = /media/hd2000/Media" >> /etc/samba/smb.conf
 
-   then
+    sudo echo "[manutencao]" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "path = /media/hd2000/Manutencao" >> /etc/samba/smb.conf
+	
+    sudo echo "[www]" >> /etc/samba/smb.conf
+	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "path = /var/www" >> /etc/samba/smb.conf
 
-      continue
+    sudo echo "[programacao]" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
+	sudo echo "path = /media/hd2000/Programacao" >> /etc/samba/smb.conf
 
-   fi
+    sudo echo "[clients]" >> /etc/samba/smb.conf
+	sudo echo "path = /media/hd2000/Clientes" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
+	
+	sudo echo "[push]" >> /etc/samba/smb.conf
+	sudo echo "path = /media/hd2000/torrent/torrent-push" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo service smbd restart
+    sudo bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
+echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
 
-   if [ $SEL -eq 4 ]
+################################################################################
+#                                   PHPMYADMIN                                 #
+################################################################################
 
-   then
+echo -e " ${BLUE} PHPMYADMIN INSTALL"
+echo -e  ${WHITE} 
+sudo apt install -y phpmyadmin php-gettext wget
+echo -e "${CYAN} PHPMYADMIN INSTALLED ${GREEN}Successfull"
 
-      QUIT=1
+################################################################################
+#                                   UTORRENT                                   #
+################################################################################
 
-      continue
+echo -e " ${BLUE} UTORRENT INSTALL"
+echo -e  ${WHITE} 
+    sudo apt install libssl1.0.0 libssl-dev wget 
+    sudo wget http://download-new.utorrent.com/endpoint/utserver/os/linux-x64-ubuntu-13-04/track/beta/ -O utserver.tar.gz 
+    sudo tar -zxvf utserver.tar.gz -C /opt/ 
+    sudo chmod 777 /opt/utorrent-server-alpha-v3_3/
+    sudo ln -s /opt/utorrent-server-alpha-v3_3/utserver /usr/bin/utserver
+    sudo wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/utorrent
+    sudo chmod 755 utorrent
+    sudo cp utorrent /etc/init.d/
+    cd /etc/init.d/ 
+    sudo update-rc.d utorrent defaults
+    sudo service utorrent start 
+    #systemctl status utorrent.service
+    sudo service utorrent restart
+echo -e "${CYAN} UTORRENT INSTALLED ${GREEN}Successfull"  
 
-   fi
+################################################################################
+#                                   PXE                                        #
+################################################################################
 
-   #put message in middle of screen
+echo -e " ${BLUE} PXE INSTALL"
+echo -e  ${WHITE} 
+sudo apt install -y tftpd-hpa wget
+    sudo echo "TFTP_DIRECTORY= /media/hd2000/wds_share" >> /etc/default/tftpd-hpa
+    sudo echo "RUN_DAEMON="no"" >> /etc/default/tftpd-hpa
+    sudo echo "OPTIONS="-l -s /media/hd2000/wds_share"" >> /etc/default/tftpd-hpa
+    sudo /etc/init.d/tftpd-hpa restart
+    sudo apt install -y isc-dhcp-server wget
+    sudo echo "option domain-name "coreserver.duckdns.org";" >> /etc/dhcp/dhcpd.conf
+    sudo echo "option domain-name-servers ns1.coreserver.duckdns.org, ns2.coreser.duckdns.org;" >> /etc/dhcp/dhcpd.conf
+    sudo echo "ddns-update-style interim; authoritative; allow booting; allow bootp; " >> /etc/dhcp/dhcpd.conf
+    sudo echo "subnet 192.168.0.0 netmask 255.255.255.0" >>  /etc/dhcp/dhcpd.conf
+    sudo echo " {" >> /etc/dhcp/dhcpd.conf
+    sudo echo "range 192.168.0.100 192.168.0.254;" >>  /etc/dhcp/dhcpd.conf
+    sudo echo "filename "pxelinux.0";" >> /etc/dhcp/dhcpd.conf
+    sudo echo "default-lease-time 86400;" >> /etc/dhcp/dhcpd.conf
+    sudo echo "max-lease-time 604800;" >> /etc/dhcp/dhcpd.conf
+    sudo echo "option subnet-mask 255.255.255.0;"  >> /etc/dhcp/dhcpd.conf
+    sudo echo "option broadcast-address 192.168.0.255;" >> /etc/dhcp/dhcpd.conf
+    sudo echo "option domain-name-servers 192.168.0.1;" >> /etc/dhcp/dhcpd.conf
+    sudo echo "option routers 192.168.0.1;" >>  /etc/dhcp/dhcpd.conf
+    sudo echo " }" >>  /etc/dhcp/dhcpd.conf
+    sudo service isc-dhcp-server restart
+    sudo /etc/init.d/tftpd-hpa restart
+echo -e "${CYAN} PXE INSTALLED ${GREEN} Successfull" 
 
-   tput cup 15 20
+################################################################################
+#                               KMS SERVER                                     #
+################################################################################
+    echo -e " ${BLUE} KMS SERVER INSTALL"
+    echo -e  ${WHITE} 
+    cd /opt
+    sudo git clone https://github.com/myanaloglife/py-kms.git
+    sudo echo 'kms:x:501:65534::/nonexistent:/bin/false' >> /etc/passwd
+    sudo echo 'kms:*:16342:0:99999:7:::' >> /etc/shadow
+    sudo echo '[Unit]' > /etc/systemd/system/py-kms.service
+    sudo echo 'Description=Python KMS Server' >> /etc/systemd/system/py-kms.service
+    sudo echo >> /etc/systemd/system/py-kms.service
+    sudo echo '[Service]' >> /etc/systemd/system/py-kms.service
+    sudo echo 'ExecStart=/usr/bin/python /opt/py-kms/server.py' >> /etc/systemd/system/py-kms.service
+    sudo echo 'User=kms' >> /etc/systemd/system/py-kms.service
+    sudo echo 'Restart=always' >> /etc/systemd/system/py-kms.service
+    sudo echo 'RestartSec=1' >> /etc/systemd/system/py-kms.service
+    sudo echo >> /etc/systemd/system/py-kms.service
+    sudo echo '[Install]' >> /etc/systemd/system/py-kms.service
+    sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/py-kms.service
+    systemctl enable py-kms.service
+    systemctl start py-kms.service
+echo -e "${CYAN} KMS SERVER INSTALLED ${GREEN}Successfull" 
+cd
+################################################################################
+#                        PLEX MEDIA SERVER                                     #
+################################################################################
+ echo -e " ${BLUE} PLEX MEDIA SERVER INSTALL"
+    echo -e  ${WHITE} 
+    wget https://downloads.plex.tv/plex-media-server/1.13.2.5154-fd05be322/plexmediaserver_1.13.2.5154-fd05be322_amd64.deb
+    dpkg -i plexmediaserver_1.13.2.5154-fd05be322_amd64.deb
+echo -e "${CYAN} PLEX MEDIA SERVER  INSTALLED ${GREEN}Successfull" 
+################################################################################
+#                           MEGA UPLOADER                                      #
+################################################################################
+ echo -e " ${BLUE} MEGATOOLS INSTALL"
+    echo -e  ${WHITE}
+    cd
+    sudo apt install megatools wget
+    sudo touch ~/.megarc
+    echo "[Login]" >> ~/.megarc
+    echo "Username = carloscoelho_@live.com " >> ~/.megarc
+    echo "Password = " >> ~/.megarc
+ echo -e "${CYAN} MEGATOOLS  INSTALLED ${GREEN}Successfull"   
+################################################################################
+#                           SCRIPTS                                            #
+################################################################################
+ echo -e " ${BLUE} ADDING SCRIPTS"
+    echo -e  ${WHITE}
+cd
+mkdir ~/.scripts
+cd ~/.scripts
+wget https://raw.githubusercontent.com/coelhocarlos/meganz/master/megasend.sh
+wget https://raw.githubusercontent.com/coelhocarlos/sqldump/master/MysqlDump.sh
+wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/duck.sh
+chmod +x megasend.sh
+chmod +x MysqlDump.sh
+chmod +x duck.sh
+echo "* 23 * * * ~/.scripts/mysqldump.sh #Mysql backup" >>/var/spool/cron/crontabs/root
+echo "@daily ~/.scripts/megasend.sh" >> /var/spool/cron/crontabs/root
+echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
+ echo -e "${CYAN} SCRIPTS ADDED ${GREEN}Successfull" 
+ ################################################################################
+#                                  UFW                                         #
+################################################################################
+echo -e " $BLUE} UFW SET"
+sudo ufw allow 22/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw allow 8080/tcp
+sudo ufw allow 69
+sudo ufw allow apache
+sudo ufw allow webmin
+sudo ufw allow samba
+sudo ufw allow php
+sudo ufw allow 32400
+sudo ufw allow 27015
+sudo ufw allow 25565
+sudo ufw allow 25567
+sudo ufw allow 1688
+sudo ufw enable 
+echo -e ${CYAN}"UFW SET   ${GREEN}ADDED Successful"
+################################################################################
+#                               FINISH                                         #
+################################################################################
+echo -e  ${WHITE}
+sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
+################################################################################
+#                               CHECK PACKAGES                                 #
+################################################################################
+tput bel
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' plex|grep "install ok installed")
+echo -e  Checking for ${BOLD}apache2${WHITE}:  ${GREEN}OK!  "\xE2\x9C\x94" ${WHITE}
+if [ "" == "$PKG_OK" ]; then
+echo -e  "${RED}apache2 ${YELLOW} Not Installed ${RED}error \u274c\n  ${YELLOW} ${WHITE}"
+sudo apt install apache2 wget
+fi
+declare -a packages=("webmin" "apache2" "php7.2" "plex" "utorrent" "megatools");
 
-   #Delete from cursor to end of line
-
-   tput el
-
-   case $SEL in
-
-      *) echo "You selected $SEL";;
-
-   esac
-
+for i in "${packages[@]}"; do
+    if [ $(dpkg-query -W -f='${Status}' $i 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
+        echo -e "$i Not Installed ${RED}error \u274c\n   ${WHITE}";
+        echo "$i is not installed, would you like to install it now? (Y/N)";
+        read response
+        if [ "$response" == "y" ] || [ "$response" == "Y" ]; then
+            sudo apt-get install "$i";
+        else
+            echo "Skipping the installation of $i...";
+        fi
+    else
+        echo -e  "The $i package has already been installed.  ${GREEN} OK! \xE2\x9C\x94  ${WHITE}";
+    fi
 done
 
-#reset the screen
 
-#Find out if this is a "linux" virtual terminal
 
-if [ $TERM ~ "linux" ]
-
-then
-
-     tput setb 0 #reset background to black
-
-fi
-
-tput reset
-
-tput clear
-tput sgr0
-tput rc
-    else
-        echo "Not running an Ubuntu distribution. ID=$ID, VERSION=$VERSION"
-    fi
-else
-    echo "Not running a distribution with /etc/os-release available"
-fi
 
 
 
