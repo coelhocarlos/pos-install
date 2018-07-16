@@ -18,6 +18,8 @@ tput setab 7
 ################################################################################
 #                               Start Script                                   #
 ################################################################################
+echo -e  ${YELLOW}
+cat /etc/*-release
 echo -e  ${RED}
 #sudo nano /etc/netplan/
 sudo netplan apply
