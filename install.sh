@@ -15,12 +15,15 @@ CYAN=`tput setaf 6`
 BOLD=`tput bold`
 RESET=`tput sgr0`
 tput setab 7
-echo -e "${CYAN}################################################################################"
-echo -e "${CYAN}#                                $YELLOW}Start Script                    ${CYAN}#"
-echo -e "${CYAN}################################################################################"
-echo -e  ${WHITE}
+################################################################################
+#                               Start Script                                   #
+################################################################################
+echo -e  ${RED}
 #sudo nano /etc/netplan/
 sudo netplan apply
+echo -e  ${WHITE} 
+echo -e " ${BLUE} CHECK UPDATES ..."
+echo -e  ${WHITE} 
 sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
 
 ################################################################################
