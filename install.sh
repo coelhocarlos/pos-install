@@ -90,6 +90,50 @@ echo -e  ${WHITE}
     sudo chmod -R 755 /var/www/server
     
     sudo systemctl restart apache2
+    sudo mkdir /etc/apache2/ssl
+    sudo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.pem -out /etc/apache2/ssl/apache.pem
+    sudo chmod 600 /etc/apache2/ssl/apache.pem
+    
+    echo "<VirtualHost *:80>" >>
+    echo "ServerAdmin webmaster@localhost" >>
+
+    echo "DocumentRoot /var/www/html" >>
+    echo "<Directory />" >>
+    echo "Options FollowSymLinks" >>
+    echo "AllowOverride All" >>
+    echo "</Directory>" >>
+    echo "<Directory /var/www/html/>" >>
+    echo "Options -Indexes FollowSymLinks MultiViews" >>
+    echo "AllowOverride None" >>
+    echo "Order allow,deny" >>
+    echo "allow from all" >>
+    echo "</Directory>" >>
+
+    echo "ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/" >> /etc/apache2/sites-available/default
+    echo "<Directory "/usr/lib/cgi-bin">" >> /etc/apache2/sites-available/default
+    echo "AllowOverride None" >> /etc/apache2/sites-available/default
+    echo "Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch" >> /etc/apache2/sites-available/default
+    echo "Order allow,deny" >> /etc/apache2/sites-available/default
+    echo "Allow from all" >> /etc/apache2/sites-available/default
+    echo "</Directory>" >> /etc/apache2/sites-available/default
+
+    erro "ErrorLog ${APACHE_LOG_DIR}/error.log" >> /etc/apache2/sites-available/default
+
+    echo "# Possible values include: debug, info, notice, warn, error, crit, alert, emerg." >> /etc/apache2/sites-available/default
+    echo "LogLevel warn" >> /etc/apache2/sites-available/default
+
+    echo "CustomLog ${APACHE_LOG_DIR}/access.log combined" >> /etc/apache2/sites-available/default
+    sudo a2ensite default-ssl
+    echo "NameVirtualHost *:80" >> /etc/apache2/ports.conf
+    echo "Listen 80" >> /etc/apache2/ports.conf
+    echo "<IfModule mod_ssl.c>" >> /etc/apache2/ports.conf
+    echo "NameVirtualHost *:443" >> /etc/apache2/ports.conf
+    echo "Listen 443" >> /etc/apache2/ports.conf
+    echo "</IfModule>" >> /etc/apache2/ports.conf
+    echo "<IfModule mod_gnutls.c>" >> /etc/apache2/ports.conf
+    echo "Listen 443" >> /etc/apache2/ports.conf
+    echo "</IfModule>" >> /etc/apache2/ports.conf
+    sudo service apache2 restart
     #sudo ufw status
     #sudo systemctl status apache2
 echo -e " ${CYAN} APACHE INSTALLED ${GREEN}Successfull"
