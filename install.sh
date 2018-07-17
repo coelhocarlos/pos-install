@@ -79,8 +79,9 @@ echo -e  ${WHITE}
     echo "ServerTokens Prod" >> /etc/apache2/apache2.conf
     
     sudo mkdir -p /var/www/server 
-    sudo mkdir -p /var/www/public 
+    sudo mkdir -p /var/www/public
     
+    sudo chown -R www-data:www-data
     sudo chown -R $zombie:$zombie /var/www/html 
     sudo chown -R $zombie:$zombie /var/www/server 
     sudo chown -R $zombie:$zombie /var/www/public 
@@ -133,7 +134,12 @@ echo -e  ${WHITE}
     echo "<IfModule mod_gnutls.c>" >> /etc/apache2/ports.conf
     echo "Listen 443" >> /etc/apache2/ports.conf
     echo "</IfModule>" >> /etc/apache2/ports.conf
-    sudo service apache2 restart
+    sudo systemctl status apache2
+    # PHP INI 
+    echo "upload_max_filesize = 64M" >> /etc/php5/apache2/php.ini
+    echo "max_file_uploads = 200" >> /etc/php5/apache2/php.ini
+    echo "post_max_size = 128M" >> /etc/php5/apache2/php.ini
+    sudo systemctl status apache2
     #sudo ufw status
     #sudo systemctl status apache2
 echo -e " ${CYAN} APACHE INSTALLED ${GREEN}Successfull"
