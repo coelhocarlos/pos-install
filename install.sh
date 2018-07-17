@@ -69,9 +69,15 @@ echo -e ${CYAN}"WEBMIN   ${GREEN}INSTALLED Successful"
 
 echo -e " ${BLUE} APACHE INSTALL"
 echo -e  ${WHITE} 
-sudo apt install apache2 wget
+    sudo apt install apache2 apache2-utils libapache2-mod-php wget
+   
+    sudo a2enmod auth_digest ssl reqtimeout
     #sudo ufw app list 
     sudo ufw allow 'Apache'
+    echo "Timeout 30" >> /etc/apache2/apache2.conf
+    echo "ServerSignature Off" >> /etc/apache2/apache2.conf
+    echo "ServerTokens Prod" >> /etc/apache2/apache2.conf
+    
     sudo mkdir -p /var/www/server 
     sudo mkdir -p /var/www/public 
     
@@ -82,6 +88,7 @@ sudo apt install apache2 wget
     sudo chmod -R 755 /var/www/html
     sudo chmod -R 755 /var/www/public
     sudo chmod -R 755 /var/www/server
+    
     sudo systemctl restart apache2
     #sudo ufw status
     #sudo systemctl status apache2
