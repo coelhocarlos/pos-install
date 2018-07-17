@@ -111,7 +111,7 @@ echo -e  ${WHITE}
     sudo mkdir /etc/apache2/ssl
     sudo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.pem -out /etc/apache2/ssl/apache.pem
     sudo chmod 600 /etc/apache2/ssl/apache.pem
-    
+    #------------------------------------80------------------------------------------------------------------------
     echo "<VirtualHost *:80>" >>
     echo "ServerAdmin webmaster@localhost" >>
 
@@ -141,23 +141,7 @@ echo -e  ${WHITE}
     echo "LogLevel warn" >> /etc/apache2/sites-available/default
 
     echo "CustomLog ${APACHE_LOG_DIR}/access.log combined" >> /etc/apache2/sites-available/default
-    sudo a2ensite default-ssl
-    echo "NameVirtualHost *:80" >> /etc/apache2/ports.conf
-    echo "Listen 80" >> /etc/apache2/ports.conf
-    echo "<IfModule mod_ssl.c>" >> /etc/apache2/ports.conf
-    echo "NameVirtualHost *:443" >> /etc/apache2/ports.conf
-    echo "Listen 443" >> /etc/apache2/ports.conf
-    echo "</IfModule>" >> /etc/apache2/ports.conf
-    echo "<IfModule mod_gnutls.c>" >> /etc/apache2/ports.conf
-    echo "Listen 443" >> /etc/apache2/ports.conf
-    echo "</IfModule>" >> /etc/apache2/ports.conf
-    sudo systemctl restart apache2
-    # PHP INI 
-    echo "upload_max_filesize = 64M" >> /etc/php7.2/apache2/php.ini
-    echo "max_file_uploads = 200" >> /etc/php7.2/apache2/php.ini
-    echo "post_max_size = 128M" >> /etc/php7.2/apache2/php.ini
-    sudo systemctl restart apache2
-    
+    #--------------------------------------443----------------------------------------------------------------------
     echo "<VirtualHost *:443>" >> /etc/php7.2/apache2/php.ini
     echo "ServerAdmin webmaster@localhost" >> /etc/php7.2/apache2/php.ini
     echo "ServerName <server.address>:443" >> /etc/php7.2/apache2/php.ini
@@ -183,6 +167,26 @@ echo -e  ${WHITE}
     echo "LogLevel warn"
 
     echo "CustomLog ${APACHE_LOG_DIR}/access.log combined"
+    
+    echo "NameVirtualHost *:80" >> /etc/apache2/ports.conf
+    echo "Listen 80" >> /etc/apache2/ports.conf
+    echo "<IfModule mod_ssl.c>" >> /etc/apache2/ports.conf
+    echo "NameVirtualHost *:443" >> /etc/apache2/ports.conf
+    echo "Listen 443" >> /etc/apache2/ports.conf
+    echo "</IfModule>" >> /etc/apache2/ports.conf
+    echo "<IfModule mod_gnutls.c>" >> /etc/apache2/ports.conf
+    echo "Listen 443" >> /etc/apache2/ports.conf
+    echo "</IfModule>" >> /etc/apache2/ports.conf
+    sudo a2ensite default-ssl
+    sudo systemctl restart apache2
+    
+    # PHP INI 
+    echo "upload_max_filesize = 64M" >> /etc/php7.2/apache2/php.ini
+    echo "max_file_uploads = 200" >> /etc/php7.2/apache2/php.ini
+    echo "post_max_size = 128M" >> /etc/php7.2/apache2/php.ini
+    sudo systemctl restart apache2
+    
+   
     #sudo ufw status
     #sudo systemctl status apache2
 echo -e " ${CYAN} APACHE INSTALLED ${GREEN}Successfull"
