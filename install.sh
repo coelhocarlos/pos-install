@@ -64,7 +64,24 @@ echo -e  ${WHITE}
 echo -e ${CYAN}"WEBMIN   ${GREEN}INSTALLED Successful"
 
 ################################################################################
-#                                   Apache                                     #
+#                                   PHP                                        #
+################################################################################
+
+echo -e " ${BLUE} PHP 7.2 INSTALL"
+echo -e  ${WHITE} 
+    sudo apt install php7.2 libapache2-mod-php7.2 wget
+    sudo apt-get -y install php7.2-mysql php7.2-curl php7.2-gd php7.2-intl php-pear php-imagick php7.2-imap php-memcache  php7.2-pspell php7.2-recode php7.2-sqlite3 php7.2-tidy php7.2-xmlrpc php7.2-xsl php7.2-mbstring php-gettext || local ERROR=1
+    sudo systemctl restart apache2 
+    sudo apt-get -y install php7.2-opcache php-apcu
+    sudo systemctl restart apache2 
+    sudo a2enmod ssl 
+    sudo systemctl restart apache2
+    sudo a2ensite default-ssl
+    sudo systemctl restart apache2
+echo -e "${CYAN} PHP 7.2 INSTALLED ${GREEN}Successfull"
+
+################################################################################
+#                                   Apache SSL                                 #
 ################################################################################
 
 echo -e " ${BLUE} APACHE INSTALL"
@@ -134,33 +151,41 @@ echo -e  ${WHITE}
     echo "<IfModule mod_gnutls.c>" >> /etc/apache2/ports.conf
     echo "Listen 443" >> /etc/apache2/ports.conf
     echo "</IfModule>" >> /etc/apache2/ports.conf
-    sudo systemctl status apache2
+    sudo systemctl restart apache2
     # PHP INI 
-    echo "upload_max_filesize = 64M" >> /etc/php5/apache2/php.ini
-    echo "max_file_uploads = 200" >> /etc/php5/apache2/php.ini
-    echo "post_max_size = 128M" >> /etc/php5/apache2/php.ini
-    sudo systemctl status apache2
+    echo "upload_max_filesize = 64M" >> /etc/php7.2/apache2/php.ini
+    echo "max_file_uploads = 200" >> /etc/php7.2/apache2/php.ini
+    echo "post_max_size = 128M" >> /etc/php7.2/apache2/php.ini
+    sudo systemctl restart apache2
+    
+    echo "<VirtualHost *:443>" >> /etc/php7.2/apache2/php.ini
+    echo "ServerAdmin webmaster@localhost" >> /etc/php7.2/apache2/php.ini
+    echo "ServerName <server.address>:443" >> /etc/php7.2/apache2/php.ini
+
+    echo "SSLEngine on" >> /etc/php5/apache2/php.ini
+    echo "SSLCertificateFile /etc/apache2/ssl/apache.pem" >> /etc/php7.2/apache2/php.ini
+
+    echo "DocumentRoot /var/www/html/"  >> /etc/php7.2/apache2/php.ini
+    echo "<Directory />" >> /etc/php7.2/apache2/php.ini
+    echo "Options FollowSymLinks" >> /etc/php7.2/apache2/php.ini
+    echo "AllowOverride All" >> /etc/php7.2/apache2/php.ini
+    echo "</Directory>" >> /etc/php7.2/apache2/php.ini
+    echo "<Directory /var/www/html/>" >> /etc/php7.2/apache2/php.ini
+    echo "Options -Indexes FollowSymLinks MultiViews" >> /etc/php7.2/apache2/php.ini
+    echo "AllowOverride None" >> /etc/php7.2/apache2/php.ini
+    echo "Order allow,deny" >> /etc/php7.2/apache2/php.ini
+    echo "allow from all" >> /etc/php7.2/apache2/php.ini
+    echo "</Directory>"  >> /etc/php7.2/apache2/php.ini
+
+    echo "ErrorLog ${APACHE_LOG_DIR}/error.log"
+
+    echo "# Possible values include: debug, info, notice, warn, error, crit, alert, emerg."
+    echo "LogLevel warn"
+
+    echo "CustomLog ${APACHE_LOG_DIR}/access.log combined"
     #sudo ufw status
     #sudo systemctl status apache2
 echo -e " ${CYAN} APACHE INSTALLED ${GREEN}Successfull"
-
-################################################################################
-#                                   PHP                                        #
-################################################################################
-
-echo -e " ${BLUE} PHP 7.2 INSTALL"
-echo -e  ${WHITE} 
-    sudo apt install php7.2 libapache2-mod-php7.2 wget
-    sudo apt-get -y install php7.2-mysql php7.2-curl php7.2-gd php7.2-intl php-pear php-imagick php7.2-imap php-memcache  php7.2-pspell php7.2-recode php7.2-sqlite3 php7.2-tidy php7.2-xmlrpc php7.2-xsl php7.2-mbstring php-gettext || local ERROR=1
-    sudo systemctl restart apache2 
-    sudo apt-get -y install php7.2-opcache php-apcu
-    sudo systemctl restart apache2 
-    sudo a2enmod ssl 
-    sudo systemctl restart apache2
-    sudo a2ensite default-ssl
-    sudo systemctl restart apache2
-echo -e "${CYAN} PHP 7.2 INSTALLED ${GREEN}Successfull"
-
 ################################################################################
 #                                   MYSQL                                      #
 ################################################################################
