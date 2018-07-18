@@ -24,7 +24,7 @@ echo -e  ${YELLOW}
 cat /etc/*-release
 echo -e  ${RED}
 #sudo nano /etc/netplan/
-//sudo netplan apply
+#sudo netplan apply
 echo -e  ${WHITE} 
 echo -e " ${BLUE} CHECK UPDATES ..."
 echo -e  ${WHITE} 
