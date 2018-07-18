@@ -407,6 +407,9 @@ echo -e "{$BLUE} nmap -p 25565 localhost"
 echo -e {$WRITE}
 echo -e "*****************************************************"
 echo -e {$WRITE}
+sudo systemctl status minecraft@survival
+sudo systemctl start minecraft@survival
+sudo systemctl status minecraft@survival
 
 echo -e "{$YELLOW}Add server Porperties"
 ############################### setings minecraft ##########################################
@@ -453,6 +456,12 @@ echo -e "${CYAN} MINECRAFT INSTALLED ${GREEN}Successfull"
 echo -e ""
 echo -e ""
 echo -e ""
+
+sudo systemctl stop minecraft@survival
+sudo systemctl enable minecraft@survival
+sudo systemctl start minecraft@survival
+sudo systemctl status minecraft@survival
+
 ################################################################################
 #                                  UFW                                         #
 ################################################################################
