@@ -166,34 +166,34 @@ echo -e  ${WHITE}
         sudo echo  "[wds_share]" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/wds_share" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-
+        sudo echo ""
         sudo echo "[imagens]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/Imagens" >> /etc/samba/smb.conf
-	
+	sudo echo ""
         sudo echo "[media]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/Media" >> /etc/samba/smb.conf
-
+        sudo echo ""
         sudo echo "[manutencao]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/Manutencao" >> /etc/samba/smb.conf
-	
+	sudo echo ""
         sudo echo "[www]" >> /etc/samba/smb.conf
 	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /var/www" >> /etc/samba/smb.conf
-
+        sudo echo ""
         sudo echo "[programacao]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/Programacao" >> /etc/samba/smb.conf
-
+        sudo echo ""
         sudo echo "[clients]" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/Clientes" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
-	
+	sudo echo ""
 	sudo echo "[push]" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/torrent/torrent-push" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
