@@ -16,26 +16,55 @@ BOLD=`tput bold`
 RESET=`tput sgr0`
 #tput setab 7
 
+# Execute a command as root (or sudo)
+do_with_root() {
+    # already root? "Just do it" (tm).
+    if [[ `whoami` = 'root' ]]; then
+        $*
+    elif [[ -x /bin/sudo || -x /usr/bin/sudo ]]; then
+        echo "sudo $*"
+        sudo $*
+    else
+        echo "Install root privileges to install."
+        echo "Please run this script as root."
+        exit 1
+    fi
+}
+
+# Detect distribution name
+if [[ `which lsb_release 2>/dev/null` ]]; then
+    # lsb_release available
+    distrib_name=`lsb_release -is`
+else
+    # lsb_release not available
+    lsb_files=`find /etc -type f -maxdepth 1 \( ! -wholename /etc/os-release ! -wholename /etc/lsb-release -wholename /etc/\*release -o -wholename /etc/\*version \) 2> /dev/null`
+    for file in $lsb_files; do
+        if [[ $file =~ /etc/(.*)[-_] ]]; then
+            distrib_name=${BASH_REMATCH[1]}
+            break
+        else
+            echo "Sorry,  script is not compliant with your system."
+            echo "Please read: https://github.com/coelhocarlos/pos-install/edit/master/install.sh
+            exit 1
+        fi
+    done
+fi
 ################################################################################
 #                               Start Script                                   #
 ################################################################################
 
-echo -e  ${WHITE}
-echo -e  ${YELLOW}
-cat /etc/*-release
-echo -e  ${RED}
-#sudo nano /etc/netplan/
-#sudo netplan apply
+#tput setab 7
 echo -e  ${WHITE} 
-echo -e " ${BLUE} CHECK UPDATES ..."
-echo -e  ${WHITE} 
+echo -e " ${RED} CHECK UPDATES ..."
+echo -e  ${BLACK} 
 sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
-
+echo -e  ${WHITE}
+tput reset
 ################################################################################
-#                                   UTEIS                                      #
+#                                 LIBRARIES INSTALL                            #
 ################################################################################
 
-echo -e "${BLUE} LIBRARIES INSTALL"
+echo -e "${RED} LIBRARIES INSTALL"
 echo -e  ${WHITE}
    sudo apt install -y  wget
    sudo apt install -y  gcc wget
@@ -44,6 +73,7 @@ echo -e  ${WHITE}
    sudo apt install -y  touch wget
    sudo apt install -y  ntfs-3g wget
    sudo apt install -y  testdisk wget
+   sudo apt install -y  glances wget
    sudo apt install -y  iptraf wget
    sudo apt install -y  genisoimage wget
    sudo apt install -y  wimtools -wget
@@ -482,6 +512,7 @@ echo -e ${WHITE}
     sudo ufw allow in on ens130 to any port 8080
     sudo ufw allow Apache
     sudo ufw allow webmin
+    sudo ufw allow 11000
     sudo ufw allow samba
     sudo ufw allow Php
     sudo ufw allow 32400
@@ -490,6 +521,7 @@ echo -e ${WHITE}
     sudo ufw allow 25565
     sudo ufw allow 25567
     sudo ufw allow 1688
+    sudp ufw allow 61208
     echo -e  ${RED} 
     sudo ufw enable 
     echo -e  ${WHITE}
