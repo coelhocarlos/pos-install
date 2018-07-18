@@ -18,14 +18,13 @@ tput setab 7
 ################################################################################
 #                               Start Script                                   #
 ################################################################################
-echo -e  "${BOLD}${GREEN} SET ROOT PASS"
-sudo passwd root
+
 echo -e  ${WHITE} 
 echo -e  ${YELLOW}
 cat /etc/*-release
 echo -e  ${RED}
 #sudo nano /etc/netplan/
-sudo netplan apply
+//sudo netplan apply
 echo -e  ${WHITE} 
 echo -e " ${BLUE} CHECK UPDATES ..."
 echo -e  ${WHITE} 
