@@ -283,7 +283,8 @@ echo -e ""
 ################################################################################
  echo -e  "${YELLOW PLEX MEDIA SERVER INSTALL"
     echo -e  ${WHITE}
-    wget -q -O- https://plex.tv/downloads/1/archive | grep "plexmediaserver_.deb" | head -1 | sed -e "s/.*https/https/" -e "s/amd64.deb./amd64.deb/" | xargs wget -q -nc; ls -t *amd64.deb | head -1 | xargs dpkg -i -E
+    wget https://downloads.plex.tv/plex-media-server/1.13.4.5251-2e6e8f841/plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
+    dpkg -i plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
 echo -e "${CYAN} PLEX MEDIA SERVER  INSTALLED ${GREEN}Successfull" 
 echo -e ""
 echo -e ""
