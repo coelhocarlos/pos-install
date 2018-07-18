@@ -41,15 +41,31 @@ echo -e  ${WHITE}
    sudo apt install -y  gcc wget
    sudo apt install -y  git wget
    sudo apt install -y  make wget
+   sudo apt install -y  touch wget
    sudo apt install -y  ntfs-3g wget
    sudo apt install -y  testdisk wget
    sudo apt install -y  iptraf wget
    sudo apt install -y  genisoimage wget
    sudo apt install -y  wimtools -wget
    sudo apt install -y  cabextract -wget
-ln -s /usr/bin/genisoimage /usr/bin/mkisofs
+ln -s /usr/bin/genisoimage /usr/bin/mkisof
 echo -e ${CYAN}"LIBRARIES INSTALLED --${GREEN} Successfull"
+echo -e ""
+echo -e ""
+echo -e ""
+################################################################################
+#                         MOUNT HD EXTERN                                      #
+################################################################################
+echo -e "${RED} MOUNT HD EXTERN"
+echo -e  ${WHITE}
 
+mkdir /media/hd2000
+#mount -t ntfs-3g /dev/sdb1 /media/hd160
+mount -t ntfs-3g /dev/sdb1 /media/hd2000
+echo -e ${CYAN}"MOUNTED AS /media/hd2000 --${GREEN} Successfull"
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                                  Webmin                                      #
 ################################################################################
@@ -61,7 +77,9 @@ echo -e  ${WHITE}
    sudo apt update
    sudo apt -y install webmin
 echo -e ${CYAN}"WEBMIN   ${GREEN}INSTALLED Successful"
-
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                                   PHP                                        #
 ################################################################################
@@ -78,7 +96,9 @@ echo -e  ${WHITE}
     sudo a2ensite default-ssl
     sudo systemctl restart apache2
 echo -e "${CYAN} PHP 7.2 INSTALLED ${GREEN}Successfull"
-
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                                   Apache SSL                                 #
 ################################################################################
@@ -115,6 +135,9 @@ echo -e ${WHITE}
     sudo systemctl restart apache2
 
 echo -e " ${CYAN} APACHE INSTALLED ${GREEN}Successfull"
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                                   MYSQL                                      #
 ################################################################################
@@ -126,6 +149,9 @@ echo -e  ${WHITE}
     #sudo mysql_secure_installation
     sudo systemctl restart mysql.service
 echo -e "${CYAN} MYSQL INSTALLED ${GREEN}Successfull"
+echo -e ""
+echo -e ""
+echo -e ""
 
 ################################################################################
 #                                   SAMBA                                      #
@@ -174,7 +200,9 @@ echo -e  ${WHITE}
 	sudo service smbd restart
         #sudo bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
 echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
-
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                                   PHPMYADMIN                                 #
 ################################################################################
@@ -183,7 +211,9 @@ echo -e  "${YELLOW} PHPMYADMIN INSTALL"
 echo -e  ${WHITE} 
     sudo apt install -y phpmyadmin php-gettext wget
 echo -e "${CYAN} PHPMYADMIN INSTALLED ${GREEN}Successfull"
-
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                                   UTORRENT                                   #
 ################################################################################
@@ -203,8 +233,11 @@ echo -e ${WHITE}
     sudo service utorrent start 
     #systemctl status utorrent.service
     sudo service utorrent restart
+    cd /downloads
 echo -e "${CYAN} UTORRENT INSTALLED ${GREEN}Successfull"  
-
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                                   PXE                                        #
 ################################################################################
@@ -212,9 +245,9 @@ echo -e "${CYAN} UTORRENT INSTALLED ${GREEN}Successfull"
 echo -e "${YELLOW} PXE INSTALL"
 echo -e ${WHITE}
 sudo apt install -y tftpd-hpa wget
-    sudo echo "TFTP_DIRECTORY= /media/hd2000/wds_share" >> /etc/default/tftpd-hpa
-    sudo echo "RUN_DAEMON="no"" >> /etc/default/tftpd-hpa
-    sudo echo "OPTIONS="-l -s /media/hd2000/wds_share"" >> /etc/default/tftpd-hpa
+    sudo echo 'TFTP_DIRECTORY= /media/hd2000/wds_share' >> /etc/default/tftpd-hpa
+    sudo echo 'RUN_DAEMON="no"' >> /etc/default/tftpd-hpa
+    sudo echo 'OPTIONS="-l -s /media/hd2000/wds_share"' >> /etc/default/tftpd-hpa
     sudo /etc/init.d/tftpd-hpa restart
     sudo apt install -y isc-dhcp-server wget
     sudo echo "option domain-name "coreserver.duckdns.org";" >> /etc/dhcp/dhcpd.conf
@@ -231,10 +264,15 @@ sudo apt install -y tftpd-hpa wget
     sudo echo "option domain-name-servers 192.168.0.1;" >> /etc/dhcp/dhcpd.conf
     sudo echo "option routers 192.168.0.1;" >>  /etc/dhcp/dhcpd.conf
     sudo echo " }" >>  /etc/dhcp/dhcpd.conf
+    #/etc/default/isc-dhcp-server
+    sudo echo 'INTERFACESv4="ens130"' >> /etc/default/isc-dhcp-server
+    sudo echo 'INTERFACESv6="ens130"' >> /etc/default/isc-dhcp-server
     sudo service isc-dhcp-server restart
     sudo /etc/init.d/tftpd-hpa restart
 echo -e "${CYAN} PXE INSTALLED ${GREEN} Successfull" 
-
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                               KMS SERVER                                     #
 ################################################################################
@@ -257,8 +295,13 @@ echo -e "${CYAN} PXE INSTALLED ${GREEN} Successfull"
     sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/py-kms.service
     systemctl enable py-kms.service
     systemctl start py-kms.service
+    cd
+    cd /downloads
 echo -e "${CYAN} KMS SERVER INSTALLED ${GREEN}Successfull" 
 cd
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                        PLEX MEDIA SERVER                                     #
 ################################################################################
@@ -266,19 +309,26 @@ cd
     echo -e  ${WHITE}
     wget https://downloads.plex.tv/plex-media-server/1.13.4.5251-2e6e8f841/plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
     dpkg -i plexmediaserver_1.13.2.5154-fd05be322_amd64.deb
+    dpkg -i plexmediaserver_1.13.2.5154-fd05be322_amd64.deb
 echo -e "${CYAN} PLEX MEDIA SERVER  INSTALLED ${GREEN}Successfull" 
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                           MEGA UPLOADER                                      #
 ################################################################################
  echo -e "${YELLOW} MEGATOOLS INSTALL"
     echo -e  "${WHITE}"
-    cd
     sudo apt install megatools wget
+    cd 
     sudo touch ~/.megarc
     echo "[Login]" >> ~/.megarc
     echo "Username = carloscoelho_@live.com " >> ~/.megarc
     echo "Password = " >> ~/.megarc
  echo -e "${CYAN} MEGATOOLS  INSTALLED ${GREEN}Successfull"   
+ echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                           SCRIPTS                                            #
 ################################################################################
@@ -297,6 +347,11 @@ echo "* 23 * * * ~/.scripts/mysqldump.sh #Mysql backup" >>/var/spool/cron/cronta
 echo "@daily ~/.scripts/megasend.sh" >> /var/spool/cron/crontabs/root
 echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
  echo -e "${CYAN} SCRIPTS ADDED ${GREEN}Successfull" 
+cd 
+cd /downloads
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                                MINECRAFT                                     #
 ################################################################################
@@ -388,6 +443,9 @@ echo "enable-rcon=false" >> /hd2000/Game-Servers/minecraft/survival/server.prope
 echo -e "{$YELLOW}Add server Porperties Suscessfull"
 echo -e {$WRITE}
 echo -e "${CYAN} MINECRAFT INSTALLED ${GREEN}Successfull" 
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                                  UFW                                         #
 ################################################################################
@@ -420,6 +478,9 @@ echo -e ${WHITE}
     sudo ufw enable 
     echo -e  ${WHITE}
 echo -e ${CYAN}"UFW SET   ${GREEN}ADDED Successful"
+echo -e ""
+echo -e ""
+echo -e ""
 ################################################################################
 #                               FINISH                                         #
 ################################################################################
