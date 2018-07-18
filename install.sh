@@ -339,7 +339,7 @@ cd
 ################################################################################
  echo -e " ${BLUE} PLEX MEDIA SERVER INSTALL"
     echo -e  ${WHITE} 
-    wget https://downloads.plex.tv/plex-media-server/1.13.2.5154-fd05be322/plexmediaserver_1.13.2.5154-fd05be322_amd64.deb
+    wget https://downloads.plex.tv/plex-media-server/1.13.4.5251-2e6e8f841/plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
     dpkg -i plexmediaserver_1.13.2.5154-fd05be322_amd64.deb
 echo -e "${CYAN} PLEX MEDIA SERVER  INSTALLED ${GREEN}Successfull" 
 ################################################################################
