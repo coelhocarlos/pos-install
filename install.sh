@@ -362,9 +362,9 @@ echo -e "${YELLOW} INSTALL MINECRAFT"
     echo -e  ${WHITE}
 sudo apt update
 sudo apt install wget screen default-jdk nmap
-sudo useradd -m -r -d /hd2000/Game-Serverss/minecraft minecraft
-sudo mkdir /hd2000/Game-Serverss/minecraft/survival
-sudo wget -O /hd2000/Game-Serverss/minecraft/survival/minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar
+sudo useradd -m -r -d /hd2000/Game-Servers/minecraft minecraft
+sudo mkdir /hd2000/Game-Servers/minecraft/survival
+sudo wget -O /hd2000/Game-Servers/minecraft/survival/minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar
 sudo bash -c "echo eula=true > /hd2000/Game-Servers/minecraft/survival/eula.txt"
 sudo chown -R minecraft /hd2000/Game-Servers/minecraft/survival/
 echo "[Unit]" >> /etc/systemd/system/minecraft@.service
