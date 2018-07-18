@@ -54,8 +54,8 @@ echo -e ${CYAN}"LIBRARIES INSTALLED --${GREEN} Successfull"
 #                                  Webmin                                      #
 ################################################################################
 
-echo -e " $BLUE} WEBMIN INSTALL"
-echo -e  ${WHITE} 
+echo -e  "{$YELLOW} WEBMIN INSTALL"
+echo -e  "${WHITE}"
    sudo apt install wget
    wget -qO- http://www.webmin.com/jcameron-key.asc | sudo apt-key add
    sudo add-apt-repository "deb http://download.webmin.com/download/repository sarge contrib"
@@ -67,8 +67,8 @@ echo -e ${CYAN}"WEBMIN   ${GREEN}INSTALLED Successful"
 #                                   PHP                                        #
 ################################################################################
 
-echo -e " ${BLUE} PHP 7.2 INSTALL"
-echo -e  ${WHITE} 
+echo -e "${YELLOW} PHP 7.2 INSTALL"
+echo -e  "${WHITE}" 
     sudo apt install php7.2 libapache2-mod-php7.2 wget
     sudo apt-get -y install php7.2-mysql php7.2-curl php7.2-gd php7.2-intl php-pear php-imagick php7.2-imap php-memcache  php7.2-pspell php7.2-recode php7.2-sqlite3 php7.2-tidy php7.2-xmlrpc php7.2-xsl php7.2-mbstring php-gettext || local ERROR=1
     sudo systemctl restart apache2 
@@ -84,8 +84,8 @@ echo -e "${CYAN} PHP 7.2 INSTALLED ${GREEN}Successfull"
 #                                   Apache SSL                                 #
 ################################################################################
 
-echo -e " ${BLUE} APACHE INSTALL"
-echo -e  ${WHITE} 
+echo -e "${YELLOW} APACHE INSTALL"
+echo -e "${WHITE}"
     sudo apt install apache2 apache2-utils libapache2-mod-php wget
    
     sudo a2enmod auth_digest ssl reqtimeout
@@ -194,8 +194,8 @@ echo -e " ${CYAN} APACHE INSTALLED ${GREEN}Successfull"
 #                                   MYSQL                                      #
 ################################################################################
 
-echo -e " ${BLUE} MYSQL INSTALL"
-echo -e  ${WHITE} 
+echo -e  "${YELLOW} MYSQL INSTALL"
+echo -e  "${WHITE}" 
     sudo apt install -y mysql-server wget
     sudo apt install -y mysql-client wget
     #sudo mysql_secure_installation
@@ -206,8 +206,8 @@ echo -e "${CYAN} MYSQL INSTALLED ${GREEN}Successfull"
 #                                   SAMBA                                      #
 ################################################################################
 
-echo -e " ${BLUE} SAMBA INSTALL"
-echo -e  ${WHITE} 
+echo -e  "${YELLOW} SAMBA INSTALL"
+echo -e  "${WHITE}"
         sudo apt install samba wget 
         sudo cp /etc/samba/smb.conf /etc/samba/smb.conf_backup
         ls -al > /etc/samba/smb.conf
@@ -254,8 +254,8 @@ echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
 #                                   PHPMYADMIN                                 #
 ################################################################################
 
-echo -e " ${BLUE} PHPMYADMIN INSTALL"
-echo -e  ${WHITE} 
+echo -e  "${YELLOW} PHPMYADMIN INSTALL"
+echo -e  "${WHITE}" 
     sudo apt install -y phpmyadmin php-gettext wget
 echo -e "${CYAN} PHPMYADMIN INSTALLED ${GREEN}Successfull"
 
@@ -263,8 +263,8 @@ echo -e "${CYAN} PHPMYADMIN INSTALLED ${GREEN}Successfull"
 #                                   UTORRENT                                   #
 ################################################################################
 
-echo -e " ${BLUE} UTORRENT INSTALL"
-echo -e  ${WHITE} 
+echo -e "${YELLOW} UTORRENT INSTALL"
+echo -e "${WHITE}" 
     sudo apt install libssl1.0.0 libssl-dev wget 
     sudo wget http://download-new.utorrent.com/endpoint/utserver/os/linux-x64-ubuntu-13-04/track/beta/ -O utserver.tar.gz 
     sudo tar -zxvf utserver.tar.gz -C /opt/ 
@@ -284,8 +284,8 @@ echo -e "${CYAN} UTORRENT INSTALLED ${GREEN}Successfull"
 #                                   PXE                                        #
 ################################################################################
 
-echo -e " ${BLUE} PXE INSTALL"
-echo -e  ${WHITE} 
+echo -e "${YELLOW} PXE INSTALL"
+echo -e "${WHITE}"
 sudo apt install -y tftpd-hpa wget
     sudo echo "TFTP_DIRECTORY= /media/hd2000/wds_share" >> /etc/default/tftpd-hpa
     sudo echo "RUN_DAEMON="no"" >> /etc/default/tftpd-hpa
@@ -313,8 +313,8 @@ echo -e "${CYAN} PXE INSTALLED ${GREEN} Successfull"
 ################################################################################
 #                               KMS SERVER                                     #
 ################################################################################
-    echo -e " ${BLUE} KMS SERVER INSTALL"
-    echo -e  ${WHITE} 
+    echo -e  "${YELLOW} KMS SERVER INSTALL"
+    echo -e  "${WHITE}" 
     cd /opt
     sudo git clone https://github.com/myanaloglife/py-kms.git
     sudo echo 'kms:x:501:65534::/nonexistent:/bin/false' >> /etc/passwd
@@ -337,16 +337,16 @@ cd
 ################################################################################
 #                        PLEX MEDIA SERVER                                     #
 ################################################################################
- echo -e " ${BLUE} PLEX MEDIA SERVER INSTALL"
-    echo -e  ${WHITE} 
+ echo -e  "${YELLOW PLEX MEDIA SERVER INSTALL"
+    echo -e  "${WHITE}"
     wget https://downloads.plex.tv/plex-media-server/1.13.4.5251-2e6e8f841/plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
     dpkg -i plexmediaserver_1.13.2.5154-fd05be322_amd64.deb
 echo -e "${CYAN} PLEX MEDIA SERVER  INSTALLED ${GREEN}Successfull" 
 ################################################################################
 #                           MEGA UPLOADER                                      #
 ################################################################################
- echo -e " ${BLUE} MEGATOOLS INSTALL"
-    echo -e  ${WHITE}
+ echo -e "${YELLOW} MEGATOOLS INSTALL"
+    echo -e  "${WHITE}"
     cd
     sudo apt install megatools wget
     sudo touch ~/.megarc
@@ -357,8 +357,8 @@ echo -e "${CYAN} PLEX MEDIA SERVER  INSTALLED ${GREEN}Successfull"
 ################################################################################
 #                           SCRIPTS                                            #
 ################################################################################
- echo -e " ${BLUE} ADDING SCRIPTS"
-    echo -e  ${WHITE}
+ echo -e "${YELLOW} ADDING SCRIPTS"
+    echo -e  "${WHITE}"
 cd
 mkdir ~/.scripts
 cd ~/.scripts
@@ -375,6 +375,8 @@ echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
 ################################################################################
 #                                MINECRAFT                                     #
 ################################################################################
+echo -e "${YELLOW} INSTALL MINECRAFT"
+    echo -e  "${WHITE}"
 sudo apt update
 sudo apt install wget screen default-jdk nmap
 sudo useradd -m -r -d /hd2000/game-server/minecraft minecraft
@@ -460,11 +462,12 @@ echo "motd=A Minecraft ZOmbie The Zer0 Server" >> /hd2000/game-server/minecraft/
 echo "enable-rcon=false" >> /hd2000/game-server/minecraft/survival/server.properties
 echo -e "{$YELLOW}Add server Porperties Suscessfull"
 echo -e {$WRITE}
+echo -e "${CYAN} MINECRAFT INSTALLED ${GREEN}Successfull" 
 ################################################################################
 #                                  UFW                                         #
 ################################################################################
-echo -e " $BLUE} UFW SET"
-echo -e  ${WHITE} 
+echo -e "$YELLOW} UFW SET"
+echo -e "${WHITE}"
     sudo ufw default deny incoming
     sudo ufw default allow outgoing
     sudo ufw allow 22/tcp
@@ -497,7 +500,7 @@ echo -e ${CYAN}"UFW SET   ${GREEN}ADDED Successful"
 ################################################################################
 echo -e  ${WHITE}
 sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
-
+echo -e ${YELLOW}
 read -r -p "Are you sure? [Y/n]" response
  response=${response,,} # tolower
  if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
