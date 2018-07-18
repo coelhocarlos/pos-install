@@ -208,8 +208,8 @@ echo -e "${CYAN} MYSQL INSTALLED ${GREEN}Successfull"
 echo -e  "${YELLOW} SAMBA INSTALL"
 echo -e  ${WHITE}
         sudo apt install -y samba wget 
-        sudo cp /etc/samba/smb.conf /etc/samba/smb.conf_backup
-        touch /etc/samba/smb.conf
+        #sudo cp /etc/samba/smb.conf /etc/samba/smb.conf_backup
+        #touch /etc/samba/smb.conf
     
         sudo echo  "[wds_share]" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/wds_share" >> /etc/samba/smb.conf
