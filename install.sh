@@ -20,7 +20,7 @@ RESET=`tput sgr0`
 #                               Start Script                                   #
 ################################################################################
 
-echo -e  ${WHITE} 
+echo -e  ${WHITE}
 echo -e  ${YELLOW}
 cat /etc/*-release
 echo -e  ${RED}
@@ -112,20 +112,20 @@ echo -e  ${WHITE}
     sudo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.pem -out /etc/apache2/ssl/apache.pem
     sudo chmod 600 /etc/apache2/ssl/apache.pem
     #------------------------------------80------------------------------------------------------------------------
-    echo "<VirtualHost *:80>" >>
-    echo "ServerAdmin webmaster@localhost" >>
+    echo "<VirtualHost *:80>" >> /etc/apache2/sites-available/default
+    echo "ServerAdmin webmaster@localhost" >> /etc/apache2/sites-available/default
 
-    echo "DocumentRoot /var/www/html" >>
-    echo "<Directory />" >>
-    echo "Options FollowSymLinks" >>
-    echo "AllowOverride All" >>
-    echo "</Directory>" >>
-    echo "<Directory /var/www/html/>" >>
-    echo "Options -Indexes FollowSymLinks MultiViews" >>
-    echo "AllowOverride None" >>
-    echo "Order allow,deny" >>
-    echo "allow from all" >>
-    echo "</Directory>" >>
+    echo "DocumentRoot /var/www/html" >> /etc/apache2/sites-available/default
+    echo "<Directory />" >> /etc/apache2/sites-available/default
+    echo "Options FollowSymLinks" >> /etc/apache2/sites-available/default
+    echo "AllowOverride All" >> /etc/apache2/sites-available/default
+    echo "</Directory>" >> /etc/apache2/sites-available/default
+    echo "<Directory /var/www/html/>" >> /etc/apache2/sites-available/default
+    echo "Options -Indexes FollowSymLinks MultiViews" >> /etc/apache2/sites-available/default
+    echo "AllowOverride None" >> /etc/apache2/sites-available/default
+    echo "Order allow,deny" >> /etc/apache2/sites-available/default
+    echo "allow from all" >> /etc/apache2/sites-available/default
+    echo "</Directory>" >> /etc/apache2/sites-available/default
 
     echo "ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/" >> /etc/apache2/sites-available/default
     echo "<Directory "/usr/lib/cgi-bin">" >> /etc/apache2/sites-available/default
