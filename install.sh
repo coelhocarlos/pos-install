@@ -295,10 +295,8 @@ echo -e ""
     sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/py-kms.service
     systemctl enable py-kms.service
     systemctl start py-kms.service
-    cd
-    cd /downloads
+    
 echo -e "${CYAN} KMS SERVER INSTALLED ${GREEN}Successfull" 
-cd
 echo -e ""
 echo -e ""
 echo -e ""
@@ -307,6 +305,8 @@ echo -e ""
 ################################################################################
  echo -e  "${YELLOW PLEX MEDIA SERVER INSTALL"
     echo -e  ${WHITE}
+    cd
+    cd /downloads
     wget https://downloads.plex.tv/plex-media-server/1.13.4.5251-2e6e8f841/plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
     dpkg -i plexmediaserver_1.13.2.5154-fd05be322_amd64.deb
     dpkg -i plexmediaserver_1.13.2.5154-fd05be322_amd64.deb
@@ -319,6 +319,8 @@ echo -e ""
 ################################################################################
  echo -e "${YELLOW} MEGATOOLS INSTALL"
     echo -e  "${WHITE}"
+    cd
+    cd /downloads
     sudo apt install megatools wget
     cd 
     sudo touch ~/.megarc
@@ -343,6 +345,7 @@ wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/duck.sh
 chmod +x megasend.sh
 chmod +x MysqlDump.sh
 chmod +x duck.sh
+touch /var/spool/cron/crontabs/root
 echo "* 23 * * * ~/.scripts/mysqldump.sh #Mysql backup" >>/var/spool/cron/crontabs/root
 echo "@daily ~/.scripts/megasend.sh" >> /var/spool/cron/crontabs/root
 echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
@@ -369,11 +372,10 @@ echo "Description=Minecraft Server: %i" >> /etc/systemd/system/minecraft@.servic
 echo "After=network.target" >> /etc/systemd/system/minecraft@.service
 
 echo "[Service]" >> /etc/systemd/system/minecraft@.service
-echo "WorkingDirectory=/opt/minecraft/%i" >> /etc/systemd/system/minecraft@.service
+echo "WorkingDirectory= /hd2000/Game-Servers/minecraft/%i" >> /etc/systemd/system/minecraft@.service
 
 echo "User=minecraft" >> /etc/systemd/system/minecraft@.service
 echo "Group=minecraft" >> /etc/systemd/system/minecraft@.service
- 
 echo "Restart=always" >> /etc/systemd/system/minecraft@.service
 
 #FROM:
@@ -391,14 +393,19 @@ echo "ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "stop"\015'" >> /etc
 echo "[Install]"
 echo "WantedBy=multi-user.target"
 
-echo -e "{$RED}for execute minecraft server use"
-echo -e "{$BLUE}sudo systemctl start minecraft@survival"
-echo -e "{$RED}for confirm status"
-echo -e "{$BLUE}sudo systemctl status minecraft@survival"
-echo -e "{$RED}for execute auto start on boot"
-echo -e "{$BLUE}sudo systemctl enable minecraft@survival"
-echo -e "{$RED}check minecraft port"
-echo -e "{$BLUE}nmap -p 25565 localhost"
+echo -e {$WRITE}
+echo -e "*****************************************************"
+echo -e {$WRITE}
+echo -e "{$RED} for execute minecraft server use"
+echo -e "{$BLUE} sudo systemctl start minecraft@survival"
+echo -e "{$RED} for confirm status"
+echo -e "{$BLUE} sudo systemctl status minecraft@survival"
+echo -e "{$RED} for execute auto start on boot"
+echo -e "{$BLUE} sudo systemctl enable minecraft@survival"
+echo -e "{$RED} check minecraft port"
+echo -e "{$BLUE} nmap -p 25565 localhost"
+echo -e {$WRITE}
+echo -e "*****************************************************"
 echo -e {$WRITE}
 
 echo -e "{$YELLOW}Add server Porperties"
