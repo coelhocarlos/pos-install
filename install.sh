@@ -37,7 +37,7 @@ sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
 
 echo -e "${BLUE} LIBRARIES INSTALL"
 echo -e  ${WHITE}
-   
+   sudo apt install -y  wget
    sudo apt install -y  gcc wget
    sudo apt install -y  git wget
    sudo apt install -y  make wget
@@ -56,7 +56,6 @@ echo -e ${CYAN}"LIBRARIES INSTALLED --${GREEN} Successfull"
 
 echo -e  "{$YELLOW} WEBMIN INSTALL"
 echo -e  ${WHITE}
-   sudo apt install wget
    wget -qO- http://www.webmin.com/jcameron-key.asc | sudo apt-key add
    sudo add-apt-repository "deb http://download.webmin.com/download/repository sarge contrib"
    sudo apt update
@@ -69,7 +68,7 @@ echo -e ${CYAN}"WEBMIN   ${GREEN}INSTALLED Successful"
 
 echo -e "${YELLOW} PHP 7.2 INSTALL"
 echo -e  ${WHITE} 
-    sudo apt install php7.2 libapache2-mod-php7.2 wget
+    sudo apt install -y php7.2 libapache2-mod-php7.2 wget
     sudo apt-get -y install php7.2-mysql php7.2-curl php7.2-gd php7.2-intl php-pear php-imagick php7.2-imap php-memcache  php7.2-pspell php7.2-recode php7.2-sqlite3 php7.2-tidy php7.2-xmlrpc php7.2-xsl php7.2-mbstring php-gettext || local ERROR=1
     sudo systemctl restart apache2 
     sudo apt-get -y install php7.2-opcache php-apcu
@@ -86,11 +85,11 @@ echo -e "${CYAN} PHP 7.2 INSTALLED ${GREEN}Successfull"
 
 echo -e "${YELLOW} APACHE INSTALL"
 echo -e ${WHITE}
-    sudo apt install apache2 apache2-utils libapache2-mod-php wget
+    sudo apt install -y apache2 apache2-utils libapache2-mod-php wget
    
     sudo a2enmod auth_digest ssl reqtimeout
     #sudo ufw app list 
-    sudo ufw allow 'Apache'
+    
     echo "Timeout 30" >> /etc/apache2/apache2.conf
     echo "ServerSignature Off" >> /etc/apache2/apache2.conf
     echo "ServerTokens Prod" >> /etc/apache2/apache2.conf
@@ -208,7 +207,7 @@ echo -e "${CYAN} MYSQL INSTALLED ${GREEN}Successfull"
 
 echo -e  "${YELLOW} SAMBA INSTALL"
 echo -e  ${WHITE}
-        sudo apt install samba wget 
+        sudo apt install -y samba wget 
         sudo cp /etc/samba/smb.conf /etc/samba/smb.conf_backup
         touch /etc/samba/smb.conf
     
@@ -265,7 +264,7 @@ echo -e "${CYAN} PHPMYADMIN INSTALLED ${GREEN}Successfull"
 
 echo -e "${YELLOW} UTORRENT INSTALL"
 echo -e ${WHITE}
-    sudo apt install libssl1.0.0 libssl-dev wget 
+    sudo apt install -y libssl1.0.0 libssl-dev wget 
     sudo wget http://download-new.utorrent.com/endpoint/utserver/os/linux-x64-ubuntu-13-04/track/beta/ -O utserver.tar.gz 
     sudo tar -zxvf utserver.tar.gz -C /opt/ 
     sudo chmod 777 /opt/utorrent-server-alpha-v3_3/
