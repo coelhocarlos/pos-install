@@ -195,6 +195,11 @@ echo -e  ${WHITE}
 	sudo echo "[push]" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/torrent/torrent-push" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo ""
+	sudo echo "[Game-Server]" >> /etc/samba/smb.conf
+	sudo echo "path = /media/hd2000//media/hd2000/Game-Servers" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo ""
 	sudo service smbd restart
         #sudo bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
 echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
@@ -243,7 +248,7 @@ echo -e ""
 echo -e "${YELLOW} PXE INSTALL"
 echo -e ${WHITE}
 sudo apt install -y tftpd-hpa wget
-    sudo echo 'TFTP_DIRECTORY= /media/hd2000/wds_share' >> /etc/default/tftpd-hpa
+    sudo echo 'TFTP_DIRECTORY= "/media/hd2000/wds_share"' >> /etc/default/tftpd-hpa
     sudo echo 'RUN_DAEMON="no"' >> /etc/default/tftpd-hpa
     sudo echo 'OPTIONS="-l -s /media/hd2000/wds_share"' >> /etc/default/tftpd-hpa
     sudo /etc/init.d/tftpd-hpa restart
@@ -263,6 +268,7 @@ sudo apt install -y tftpd-hpa wget
     sudo echo "option routers 192.168.0.1;" >>  /etc/dhcp/dhcpd.conf
     sudo echo " }" >>  /etc/dhcp/dhcpd.conf
     #/etc/default/isc-dhcp-server
+    
     sudo echo 'INTERFACESv4="ens130"' >> /etc/default/isc-dhcp-server
     sudo echo 'INTERFACESv6="ens130"' >> /etc/default/isc-dhcp-server
     sudo service isc-dhcp-server restart
@@ -303,31 +309,7 @@ echo -e ""
 ################################################################################
  echo -e  "${YELLOW PLEX MEDIA SERVER INSTALL"
     echo -e  ${WHITE}
-    # Fedora64 Ubuntu64 Ubuntu32 Fedora32 
-OS='Ubuntu64'
-DEB=('Ubuntu' 'elementary OS' 'Lubuntu')
-RPM=('Fedora' 'Centos')
-DIST='Lubuntu'
-SCRAPELINK='https://plex.tv/downloads?channel=plexpass'
-SCRAPESTR='data-event-action="Linux" data-event-category="Download-Media-Server'
-declare -A array
-declare $(curl -sk $SCRAPELINK  |grep -i "$SCRAPESTR" | awk 'BEGIN { FS = "\"" } { print "array["$10"]="$2""}')
-PLEXURL=${array[$OS]}
-PLEXFILE=`echo ${PLEXURL} | awk 'BEGIN { FS = "/" } { print  $6 }'`
-echo "Processing $OS on $DIST"
-if [[ " ${DEB[@]} " =~ " ${DIST} " ]]; then
-        dpkg -l | grep plexmediaserver | awk '{print "Current "$3""}'
-        echo $PLEXURL | awk 'BEGIN {FS = "/"} {print "New Ver "$5""}'
-        wget $PLEXURL
-        echo "sudo dpkg -i $PLEXFILE"
-fi
-
-if [[ " ${RPM[@]} " =~ " ${DIST} " ]]; then
-        rpm -qa | grep plexmediaserver | awk 'BEGIN {FS = "-"; OFS = "";} {print "Current "$2"-",substr($3,0,7)}'
-        echo $PLEXURL | awk 'BEGIN {FS = "/"} {print "New Ver "$5""}'
-        wget $PLEXURL
-        echo "sudo rpm -Uvh $PLEXFILE"
-fi
+    wget -q -O- https://plex.tv/downloads/1/archive | grep "plexmediaserver_.deb" | head -1 | sed -e "s/.*https/https/" -e "s/amd64.deb./amd64.deb/" | xargs wget -q -nc; ls -t *amd64.deb | head -1 | xargs dpkg -i -E
 echo -e "${CYAN} PLEX MEDIA SERVER  INSTALLED ${GREEN}Successfull" 
 echo -e ""
 echo -e ""
@@ -380,17 +362,21 @@ echo -e "${YELLOW} INSTALL MINECRAFT"
     echo -e  ${WHITE}
 sudo apt update
 sudo apt install wget screen default-jdk nmap
-sudo useradd -m -r -d /hd2000/Game-Servers/minecraft minecraft
-sudo mkdir /hd2000/Game-Servers/minecraft/survival
-sudo wget -O /hd2000/Game-Servers/minecraft/survival/minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar
-sudo bash -c "echo eula=true > /hd2000/Game-Servers/minecraft/survival/eula.txt"
-sudo chown -R minecraft /hd2000/Game-Servers/minecraft/survival/
+
+sudo useradd -m -r -d /media/hd2000/Game-Servers/minecraft minecraft
+cd /media/hd2000/Game-Servers/
+sudo mkdir minecraft
+sudo cd minecraft 
+sudo mkdir survival
+sudo wget -O /media/hd2000/Game-Servers/minecraft/survival/minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar
+sudo bash -c "echo eula=true > /media/hd2000/Game-Servers/minecraft/survival/eula.txt"
+sudo chown -R minecraft /media/hd2000/Game-Servers/minecraft/survival/
 echo "[Unit]" >> /etc/systemd/system/minecraft@.service
 echo "Description=Minecraft Server: %i" >> /etc/systemd/system/minecraft@.service
 echo "After=network.target" >> /etc/systemd/system/minecraft@.service
 
 echo "[Service]" >> /etc/systemd/system/minecraft@.service
-echo "WorkingDirectory= /hd2000/Game-Servers/minecraft/%i" >> /etc/systemd/system/minecraft@.service
+echo "WorkingDirectory= /media/hd2000/Game-Servers/minecraft/%i" >> /etc/systemd/system/minecraft@.service
 
 echo "User=minecraft" >> /etc/systemd/system/minecraft@.service
 echo "Group=minecraft" >> /etc/systemd/system/minecraft@.service
@@ -479,7 +465,7 @@ sudo systemctl stop minecraft@survival
 sudo systemctl enable minecraft@survival
 sudo systemctl start minecraft@survival
 sudo systemctl status minecraft@survival
-
+cd 
 ################################################################################
 #                                  UFW                                         #
 ################################################################################
