@@ -303,11 +303,31 @@ echo -e ""
 ################################################################################
  echo -e  "${YELLOW PLEX MEDIA SERVER INSTALL"
     echo -e  ${WHITE}
-    cd
-    cd /downloads
-    wget https://downloads.plex.tv/plex-media-server/1.13.4.5251-2e6e8f841/plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
-    dpkg -i plexmediaserver_1.13.2.5154-fd05be322_amd64.deb
-    dpkg -i plexmediaserver_1.13.2.5154-fd05be322_amd64.deb
+    # Fedora64 Ubuntu64 Ubuntu32 Fedora32 
+OS='Ubuntu64'
+DEB=('Ubuntu' 'elementary OS' 'Lubuntu')
+RPM=('Fedora' 'Centos')
+DIST='Lubuntu'
+SCRAPELINK='https://plex.tv/downloads?channel=plexpass'
+SCRAPESTR='data-event-action="Linux" data-event-category="Download-Media-Server'
+declare -A array
+declare $(curl -sk $SCRAPELINK  |grep -i "$SCRAPESTR" | awk 'BEGIN { FS = "\"" } { print "array["$10"]="$2""}')
+PLEXURL=${array[$OS]}
+PLEXFILE=`echo ${PLEXURL} | awk 'BEGIN { FS = "/" } { print  $6 }'`
+echo "Processing $OS on $DIST"
+if [[ " ${DEB[@]} " =~ " ${DIST} " ]]; then
+        dpkg -l | grep plexmediaserver | awk '{print "Current "$3""}'
+        echo $PLEXURL | awk 'BEGIN {FS = "/"} {print "New Ver "$5""}'
+        wget $PLEXURL
+        echo "sudo dpkg -i $PLEXFILE"
+fi
+
+if [[ " ${RPM[@]} " =~ " ${DIST} " ]]; then
+        rpm -qa | grep plexmediaserver | awk 'BEGIN {FS = "-"; OFS = "";} {print "Current "$2"-",substr($3,0,7)}'
+        echo $PLEXURL | awk 'BEGIN {FS = "/"} {print "New Ver "$5""}'
+        wget $PLEXURL
+        echo "sudo rpm -Uvh $PLEXFILE"
+fi
 echo -e "${CYAN} PLEX MEDIA SERVER  INSTALLED ${GREEN}Successfull" 
 echo -e ""
 echo -e ""
@@ -482,7 +502,6 @@ echo -e ${WHITE}
     sudo ufw allow webmin
     sudo ufw allow 11000
     sudo ufw allow samba
-    sudo ufw allow Php
     sudo ufw allow 32400
     sudo ufw allow 27015
     sudo ufw allow 27018
