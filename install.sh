@@ -16,39 +16,7 @@ BOLD=`tput bold`
 RESET=`tput sgr0`
 #tput setab 7
 
-# Execute a command as root (or sudo)
-do_with_root() {
-    # already root? "Just do it" (tm).
-    if [[ `whoami` = 'root' ]]; then
-        $*
-    elif [[ -x /bin/sudo || -x /usr/bin/sudo ]]; then
-        echo "sudo $*"
-        sudo $*
-    else
-        echo "Install root privileges to install."
-        echo "Please run this script as root."
-        exit 1
-    fi
-}
 
-# Detect distribution name
-if [[ `which lsb_release 2>/dev/null` ]]; then
-    # lsb_release available
-    distrib_name=`lsb_release -is`
-else
-    # lsb_release not available
-    lsb_files=`find /etc -type f -maxdepth 1 \( ! -wholename /etc/os-release ! -wholename /etc/lsb-release -wholename /etc/\*release -o -wholename /etc/\*version \) 2> /dev/null`
-    for file in $lsb_files; do
-        if [[ $file =~ /etc/(.*)[-_] ]]; then
-            distrib_name=${BASH_REMATCH[1]}
-            break
-        else
-            echo "Sorry,  script is not compliant with your system."
-            echo "Please read: https://github.com/coelhocarlos/pos-install/edit/master/install.sh
-            exit 1
-        fi
-    done
-fi
 ################################################################################
 #                               Start Script                                   #
 ################################################################################
