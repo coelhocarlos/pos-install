@@ -110,84 +110,10 @@ echo -e ${WHITE}
     sudo mkdir /etc/apache2/ssl
     sudo openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.pem -out /etc/apache2/ssl/apache.pem
     sudo chmod 600 /etc/apache2/ssl/apache.pem
-    #------------------------------------80------------------------------------------------------------------------
-    echo "<VirtualHost *:80>" >> /etc/apache2/sites-available/default
-    echo "ServerAdmin webmaster@localhost" >> /etc/apache2/sites-available/default
 
-    echo "DocumentRoot /var/www/html" >> /etc/apache2/sites-available/default
-    echo "<Directory />" >> /etc/apache2/sites-available/default
-    echo "Options FollowSymLinks" >> /etc/apache2/sites-available/default
-    echo "AllowOverride All" >> /etc/apache2/sites-available/default
-    echo "</Directory>" >> /etc/apache2/sites-available/default
-    echo "<Directory /var/www/html/>" >> /etc/apache2/sites-available/default
-    echo "Options -Indexes FollowSymLinks MultiViews" >> /etc/apache2/sites-available/default
-    echo "AllowOverride None" >> /etc/apache2/sites-available/default
-    echo "Order allow,deny" >> /etc/apache2/sites-available/default
-    echo "allow from all" >> /etc/apache2/sites-available/default
-    echo "</Directory>" >> /etc/apache2/sites-available/default
-
-    echo "ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/" >> /etc/apache2/sites-available/default
-    echo "<Directory "/usr/lib/cgi-bin">" >> /etc/apache2/sites-available/default
-    echo "AllowOverride None" >> /etc/apache2/sites-available/default
-    echo "Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch" >> /etc/apache2/sites-available/default
-    echo "Order allow,deny" >> /etc/apache2/sites-available/default
-    echo "Allow from all" >> /etc/apache2/sites-available/default
-    echo "</Directory>" >> /etc/apache2/sites-available/default
-
-    erro "ErrorLog ${APACHE_LOG_DIR}/error.log" >> /etc/apache2/sites-available/default
-
-    echo "# Possible values include: debug, info, notice, warn, error, crit, alert, emerg." >> /etc/apache2/sites-available/default
-    echo "LogLevel warn" >> /etc/apache2/sites-available/default
-
-    echo "CustomLog ${APACHE_LOG_DIR}/access.log combined" >> /etc/apache2/sites-available/default
-    #--------------------------------------443----------------------------------------------------------------------
-    echo "<VirtualHost *:443>" >> /etc/php7.2/apache2/php.ini
-    echo "ServerAdmin webmaster@localhost" >> /etc/php7.2/apache2/php.ini
-    echo "ServerName <server.address>:443" >> /etc/php7.2/apache2/php.ini
-
-    echo "SSLEngine on" >> /etc/php5/apache2/php.ini
-    echo "SSLCertificateFile /etc/apache2/ssl/apache.pem" >> /etc/php7.2/apache2/php.ini
-
-    echo "DocumentRoot /var/www/html/"  >> /etc/php7.2/apache2/php.ini
-    echo "<Directory />" >> /etc/php7.2/apache2/php.ini
-    echo "Options FollowSymLinks" >> /etc/php7.2/apache2/php.ini
-    echo "AllowOverride All" >> /etc/php7.2/apache2/php.ini
-    echo "</Directory>" >> /etc/php7.2/apache2/php.ini
-    echo "<Directory /var/www/html/>" >> /etc/php7.2/apache2/php.ini
-    echo "Options -Indexes FollowSymLinks MultiViews" >> /etc/php7.2/apache2/php.ini
-    echo "AllowOverride None" >> /etc/php7.2/apache2/php.ini
-    echo "Order allow,deny" >> /etc/php7.2/apache2/php.ini
-    echo "allow from all" >> /etc/php7.2/apache2/php.ini
-    echo "</Directory>"  >> /etc/php7.2/apache2/php.ini
-
-    echo "ErrorLog ${APACHE_LOG_DIR}/error.log"
-
-    echo "# Possible values include: debug, info, notice, warn, error, crit, alert, emerg."
-    echo "LogLevel warn"
-
-    echo "CustomLog ${APACHE_LOG_DIR}/access.log combined"
-    
-    echo "NameVirtualHost *:80" >> /etc/apache2/ports.conf
-    echo "Listen 80" >> /etc/apache2/ports.conf
-    echo "<IfModule mod_ssl.c>" >> /etc/apache2/ports.conf
-    echo "NameVirtualHost *:443" >> /etc/apache2/ports.conf
-    echo "Listen 443" >> /etc/apache2/ports.conf
-    echo "</IfModule>" >> /etc/apache2/ports.conf
-    echo "<IfModule mod_gnutls.c>" >> /etc/apache2/ports.conf
-    echo "Listen 443" >> /etc/apache2/ports.conf
-    echo "</IfModule>" >> /etc/apache2/ports.conf
     sudo a2ensite default-ssl
     sudo systemctl restart apache2
-    
-    # PHP INI 
-    echo "upload_max_filesize = 64M" >> /etc/php7.2/apache2/php.ini
-    echo "max_file_uploads = 200" >> /etc/php7.2/apache2/php.ini
-    echo "post_max_size = 128M" >> /etc/php7.2/apache2/php.ini
-    sudo systemctl restart apache2
-    
-   
-    #sudo ufw status
-    #sudo systemctl status apache2
+
 echo -e " ${CYAN} APACHE INSTALLED ${GREEN}Successfull"
 ################################################################################
 #                                   MYSQL                                      #
