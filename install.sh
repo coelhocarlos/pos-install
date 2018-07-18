@@ -371,22 +371,119 @@ echo "* 23 * * * ~/.scripts/mysqldump.sh #Mysql backup" >>/var/spool/cron/cronta
 echo "@daily ~/.scripts/megasend.sh" >> /var/spool/cron/crontabs/root
 echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
  echo -e "${CYAN} SCRIPTS ADDED ${GREEN}Successfull" 
- ################################################################################
+################################################################################
+#                                MINECRAFT                                     #
+################################################################################
+sudo apt update
+sudo apt install wget screen default-jdk nmap
+sudo useradd -m -r -d /hd2000/game-server/minecraft minecraft
+sudo mkdir /hd2000/game-server/minecraft/survival
+sudo wget -O /hd2000/game-server/minecraft/survival/minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar
+sudo bash -c "echo eula=true > /hd2000/game-server/minecraft/survival/eula.txt"
+sudo chown -R minecraft /hd2000/game-server/minecraft/survival/
+echo "[Unit]" >> /etc/systemd/system/minecraft@.service
+echo "Description=Minecraft Server: %i" >> /etc/systemd/system/minecraft@.service
+echo "After=network.target" >> /etc/systemd/system/minecraft@.service
+
+echo "[Service]" >> /etc/systemd/system/minecraft@.service
+echo "WorkingDirectory=/opt/minecraft/%i" >> /etc/systemd/system/minecraft@.service
+
+echo "User=minecraft" >> /etc/systemd/system/minecraft@.service
+echo "Group=minecraft" >> /etc/systemd/system/minecraft@.service
+ 
+echo "Restart=always" >> /etc/systemd/system/minecraft@.service
+
+#FROM:
+#ExecStart=/usr/bin/screen -DmS mc-%i /usr/bin/java -Xmx2G -jar minecraft_server.jar nogui
+#TO:
+#ExecStart=/usr/bin/screen -DmS mc-%i /usr/bin/java -Xmx4G -jar minecraft_server.jar nogui
+
+echo "ExecStart=/usr/bin/screen -DmS mc-%i /usr/bin/java -Xmx2G -jar minecraft_server.jar nogui" >> /etc/systemd/system/minecraft@.service
+
+echo "ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "say SERVER SHUTTING DOWN IN 5 SECONDS. SAVING ALL MAPS..."\015'" >> /etc/systemd/system/minecraft@.service
+echo "ExecStop=/bin/sleep 5"
+echo "ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "save-all"\015'" >> /etc/systemd/system/minecraft@.service
+echo "ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "stop"\015'" >> /etc/systemd/system/minecraft@.service
+
+echo "[Install]"
+echo "WantedBy=multi-user.target"
+
+echo -e "{$RED}for execute minecraft server use"
+echo -e "{$BLUE}sudo systemctl start minecraft@survival"
+echo -e "{$RED}for confirm status"
+echo -e "{$BLUE}sudo systemctl status minecraft@survival"
+echo -e "{$RED}for execute auto start on boot"
+echo -e "{$BLUE}sudo systemctl enable minecraft@survival"
+echo -e "{$RED}check minecraft port"
+echo -e "{$BLUE}nmap -p 25565 localhost"
+echo -e {$WRITE}
+
+echo -e "{$YELLOW}Add server Porperties"
+############################### setings minecraft ##########################################
+echo -e {$WRITE}
+echo "max-tick-time=60000" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "generator-settings=" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "allow-nether=true" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "force-gamemode=false" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "gamemode=0" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "enable-query=false" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "player-idle-timeout=0" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "difficulty=1" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "spawn-monsters=true" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "op-permission-level=4" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "pvp=true" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "snooper-enabled=true" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "level-type=DEFAULT" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "hardcore=false" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "enable-command-block=false" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "max-players=200" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "network-compression-threshold=256" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "resource-pack-sha1=" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "max-world-size=29999984" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "server-port=25565" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "server-ip=" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "spawn-npcs=true" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "allow-flight=false" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "level-name=world" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "view-distance=10" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "resource-pack=" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "spawn-animals=true" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "white-list=false" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "generate-structures=true" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "online-mode=false" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "max-build-height=256" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "level-seed=" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "prevent-proxy-connections=false" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "use-native-transport=true" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "motd=A Minecraft ZOmbie The Zer0 Server" >> /hd2000/game-server/minecraft/survival/server.properties
+echo "enable-rcon=false" >> /hd2000/game-server/minecraft/survival/server.properties
+echo -e "{$YELLOW}Add server Porperties Suscessfull"
+echo -e {$WRITE}
+################################################################################
 #                                  UFW                                         #
 ################################################################################
 echo -e " $BLUE} UFW SET"
 echo -e  ${WHITE} 
+    sudo ufw default deny incoming
+    sudo ufw default allow outgoing
     sudo ufw allow 22/tcp
-    sudo ufw allow 80/tcp
-    sudo ufw allow 443/tcp
-    sudo ufw allow 8080/tcp
     sudo ufw allow 69
-    sudo ufw allow apache
+    sudo ufw allow in on ens130 to any port 69
+    sudo ufw allow 80/tcp
+    sudo ufw allow in on ens130 to any port 80
+    sudo ufw allow 443/tcp
+    sudo ufw allow in on ens130 to any port 443
+    sudo ufw allow 2121/tcp
+    sudo ufw allow in on ens130 to any port 2121
+    sudo ufw allow 8080/tcp
+    sudo ufw allow in on ens130 to any port 8080
+    sudo ufw allow Apache
     sudo ufw allow webmin
     sudo ufw allow samba
     sudo ufw allow php
     sudo ufw allow 32400
     sudo ufw allow 27015
+    sudo ufw allow 27018
     sudo ufw allow 25565
     sudo ufw allow 25567
     sudo ufw allow 1688
