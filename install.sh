@@ -21,8 +21,8 @@ RESET=`tput sgr0`
 #                               Start Script                                   #
 ################################################################################
 
-#tput setab 7
-echo -e  ${WHITE} 
+tput setab 7
+echo -e  ${YELLOW} 
 echo -e " ${RED} CHECK UPDATES ..."
 echo -e  ${BLACK} 
 sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
