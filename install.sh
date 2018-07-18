@@ -277,33 +277,7 @@ echo -e "${CYAN} PXE INSTALLED ${GREEN} Successfull"
 echo -e ""
 echo -e ""
 echo -e ""
-################################################################################
-#                               KMS SERVER                                     #
-################################################################################
-    echo -e  "${YELLOW} KMS SERVER INSTALL"
-    echo -e  ${WHITE} 
-    cd /opt
-    sudo git clone https://github.com/myanaloglife/py-kms.git
-    sudo echo 'kms:x:501:65534::/nonexistent:/bin/false' >> /etc/passwd
-    sudo echo 'kms:*:16342:0:99999:7:::' >> /etc/shadow
-    sudo echo '[Unit]' > /etc/systemd/system/py-kms.service
-    sudo echo 'Description=Python KMS Server' >> /etc/systemd/system/py-kms.service
-    sudo echo >> /etc/systemd/system/py-kms.service
-    sudo echo '[Service]' >> /etc/systemd/system/py-kms.service
-    sudo echo 'ExecStart=/usr/bin/python /opt/py-kms/server.py' >> /etc/systemd/system/py-kms.service
-    sudo echo 'User=kms' >> /etc/systemd/system/py-kms.service
-    sudo echo 'Restart=always' >> /etc/systemd/system/py-kms.service
-    sudo echo 'RestartSec=1' >> /etc/systemd/system/py-kms.service
-    sudo echo >> /etc/systemd/system/py-kms.service
-    sudo echo '[Install]' >> /etc/systemd/system/py-kms.service
-    sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/py-kms.service
-    systemctl enable py-kms.service
-    systemctl start py-kms.service
-    
-echo -e "${CYAN} KMS SERVER INSTALLED ${GREEN}Successfull" 
-echo -e ""
-echo -e ""
-echo -e ""
+
 ################################################################################
 #                        PLEX MEDIA SERVER                                     #
 ################################################################################
@@ -339,16 +313,16 @@ echo -e ""
 cd
 mkdir ~/.scripts
 cd ~/.scripts
-wget https://raw.githubusercontent.com/coelhocarlos/meganz/master/megasend.sh
-wget https://raw.githubusercontent.com/coelhocarlos/sqldump/master/MysqlDump.sh
-wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/duck.sh
-chmod +x megasend.sh
-chmod +x MysqlDump.sh
-chmod +x duck.sh
-touch /var/spool/cron/crontabs/root
-echo "* 23 * * * ~/.scripts/mysqldump.sh #Mysql backup" >>/var/spool/cron/crontabs/root
-echo "@daily ~/.scripts/megasend.sh" >> /var/spool/cron/crontabs/root
-echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
+sudo wget https://raw.githubusercontent.com/coelhocarlos/meganz/master/megasend.sh
+sudo wget https://raw.githubusercontent.com/coelhocarlos/sqldump/master/MysqlDump.sh
+sudo wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/duck.sh
+sudo chmod +x megasend.sh
+sudo chmod +x MysqlDump.sh
+sudo chmod +x duck.sh
+sudo touch /var/spool/cron/crontabs/root
+sudo echo "* 23 * * * ~/.scripts/mysqldump.sh #Mysql backup" >>/var/spool/cron/crontabs/root
+sudo echo "@daily ~/.scripts/megasend.sh" >> /var/spool/cron/crontabs/root
+sudo echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
  echo -e "${CYAN} SCRIPTS ADDED ${GREEN}Successfull" 
 cd 
 cd /downloads
@@ -467,6 +441,33 @@ sudo systemctl start minecraft@survival
 sudo systemctl status minecraft@survival
 cd 
 ################################################################################
+#                               KMS SERVER                                     #
+################################################################################
+    echo -e  "${YELLOW} KMS SERVER INSTALL"
+    echo -e  ${WHITE} 
+    cd /opt
+    sudo git clone https://github.com/myanaloglife/py-kms.git
+    sudo echo 'kms:x:501:65534::/nonexistent:/bin/false' >> /etc/passwd
+    sudo echo 'kms:*:16342:0:99999:7:::' >> /etc/shadow
+    sudo echo '[Unit]' > /etc/systemd/system/py-kms.service
+    sudo echo 'Description=Python KMS Server' >> /etc/systemd/system/py-kms.service
+    sudo echo >> /etc/systemd/system/py-kms.service
+    sudo echo '[Service]' >> /etc/systemd/system/py-kms.service
+    sudo echo 'ExecStart=/usr/bin/python /opt/py-kms/server.py' >> /etc/systemd/system/py-kms.service
+    sudo echo 'User=kms' >> /etc/systemd/system/py-kms.service
+    sudo echo 'Restart=always' >> /etc/systemd/system/py-kms.service
+    sudo echo 'RestartSec=1' >> /etc/systemd/system/py-kms.service
+    sudo echo >> /etc/systemd/system/py-kms.service
+    sudo echo '[Install]' >> /etc/systemd/system/py-kms.service
+    sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/py-kms.service
+    systemctl enable py-kms.service
+    systemctl start py-kms.service
+   cd
+echo -e "${CYAN} KMS SERVER INSTALLED ${GREEN}Successfull" 
+echo -e ""
+echo -e ""
+echo -e ""
+################################################################################
 #                                  UFW                                         #
 ################################################################################
 echo -e "$YELLOW} UFW SET"
@@ -502,6 +503,7 @@ echo -e ${CYAN}"UFW SET   ${GREEN}ADDED Successful"
 echo -e ""
 echo -e ""
 echo -e ""
+
 ################################################################################
 #                               FINISH                                         #
 ################################################################################
