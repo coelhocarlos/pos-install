@@ -210,7 +210,7 @@ echo -e  "${YELLOW} SAMBA INSTALL"
 echo -e  ${WHITE}
         sudo apt install samba wget 
         sudo cp /etc/samba/smb.conf /etc/samba/smb.conf_backup
-        ls -al > /etc/samba/smb.conf
+        touch /etc/samba/smb.conf
     
         sudo echo  "[wds_share]" >> /etc/samba/smb.conf
 	sudo echo "path = /media/hd2000/wds_share" >> /etc/samba/smb.conf
