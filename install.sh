@@ -69,6 +69,7 @@ echo -e  ${WHITE}
    sudo apt install -y  wget
    sudo apt install -y  gcc wget
    sudo apt install -y  git wget
+   sudo apt install -y  pip wget
    sudo apt install -y  make wget
    sudo apt install -y  touch wget
    sudo apt install -y  ntfs-3g wget
