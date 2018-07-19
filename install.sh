@@ -10,10 +10,10 @@ YELLOW=`tput setaf 3`
 BLUE=`tput setaf 4`
 MAGENTA=`tput setaf 5`
 CYAN=`tput setaf 6`
-#WHITE=`tput setaf 7`
-
+WHITE=`tput setaf 7`
 BOLD=`tput bold`
 RESET=`tput sgr0`
+
 #tput setab 7
 
 
@@ -546,6 +546,22 @@ for i in "${packages[@]}"; do
         echo -e  "The $i package has already been installed.  ${GREEN} OK! \xE2\x9C\x94  ${WHITE}";
     fi
 done
+
+echo -e  "${yellow}checking  packages installed ...${white}"
+i=0; n=0; progs=(apache2 mysql phpmyadmin php7.2);
+for p in "${progs[@]}"; do
+    if hash "$p" &>/dev/null
+    then
+        echo -e "${green} $p $white} $i is installed ${green} \xE2\x9C\x94 ${wh$
+        let c++
+    else
+        echo -e "${red} $p ${white} $i is not installed ${red} \u274c\n ${white$
+        #sudo apt  install  $p wget
+        let n++
+     fi
+ done
+printf "%d of %d programs were installed.\n" "$i" "${#progs[@]}"
+printf "%d of %d programs were missing\n" "$n" "${#progs[@]}"
 
 
 
