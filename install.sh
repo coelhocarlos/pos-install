@@ -332,6 +332,69 @@ echo -e "${CYAN} PXE INSTALLED ${GREEN} Successfull"
 echo -e ""
 echo -e ""
 echo -e ""
+################################################################################
+#                               KMS SERVER                                     #
+################################################################################
+    echo -e  "${YELLOW} KMS SERVER INSTALL"
+    echo -e  ${WHITE} 
+    cd /opt
+    sudo git clone https://github.com/myanaloglife/py-kms.git
+    sudo echo 'kms:x:501:65534::/nonexistent:/bin/false' >> /etc/passwd
+    sudo echo 'kms:*:16342:0:99999:7:::' >> /etc/shadow
+    sudo echo '[Unit]' > /etc/systemd/system/py-kms.service
+    sudo echo 'Description=Python KMS Server' >> /etc/systemd/system/py-kms.service
+    sudo echo >> /etc/systemd/system/py-kms.service
+    sudo echo '[Service]' >> /etc/systemd/system/py-kms.service
+    sudo echo 'ExecStart=/usr/bin/python /opt/py-kms/server.py' >> /etc/systemd/system/py-kms.service
+    sudo echo 'User=kms' >> /etc/systemd/system/py-kms.service
+    sudo echo 'Restart=always' >> /etc/systemd/system/py-kms.service
+    sudo echo 'RestartSec=1' >> /etc/systemd/system/py-kms.service
+    sudo echo >> /etc/systemd/system/py-kms.service
+    sudo echo '[Install]' >> /etc/systemd/system/py-kms.service
+    sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/py-kms.service
+    systemctl enable py-kms.service
+    systemctl start py-kms.service
+   cd
+echo -e "${CYAN} KMS SERVER INSTALLED ${GREEN}Successfull" 
+echo -e ""
+echo -e ""
+echo -e ""
+################################################################################
+#                                  UFW                                         #
+################################################################################
+echo -e "$YELLOW} UFW SET"
+echo -e ${WHITE}
+    sudo ufw default deny incoming
+    sudo ufw default allow outgoing
+    sudo ufw allow 22/tcp
+    sudo ufw allow 69
+    sudo ufw allow in on ens130 to any port 69
+    sudo ufw allow 80/tcp
+    sudo ufw allow in on ens130 to any port 80
+    sudo ufw allow 443/tcp
+    sudo ufw allow in on ens130 to any port 443
+    sudo ufw allow 2121/tcp
+    sudo ufw allow in on ens130 to any port 2121
+    sudo ufw allow 8080/tcp
+    sudo ufw allow in on ens130 to any port 8080
+    sudo ufw allow Apache
+    sudo ufw allow webmin
+    sudo ufw allow 11000
+    sudo ufw allow samba
+    sudo ufw allow 32400
+    sudo ufw allow 27015
+    sudo ufw allow 27018
+    sudo ufw allow 25565
+    sudo ufw allow 25567
+    sudo ufw allow 1688
+    sudp ufw allow 61208
+    echo -e  ${RED} 
+    sudo ufw enable 
+    echo -e  ${WHITE}
+echo -e ${CYAN}"UFW SET   ${GREEN}ADDED Successful"
+echo -e ""
+echo -e ""
+echo -e ""
 
 ################################################################################
 #                                MINECRAFT                                     #
@@ -445,69 +508,7 @@ sudo systemctl start minecraft@survival
 sudo systemctl status minecraft@survival
 cd 
 
-################################################################################
-#                                  UFW                                         #
-################################################################################
-echo -e "$YELLOW} UFW SET"
-echo -e ${WHITE}
-    sudo ufw default deny incoming
-    sudo ufw default allow outgoing
-    sudo ufw allow 22/tcp
-    sudo ufw allow 69
-    sudo ufw allow in on ens130 to any port 69
-    sudo ufw allow 80/tcp
-    sudo ufw allow in on ens130 to any port 80
-    sudo ufw allow 443/tcp
-    sudo ufw allow in on ens130 to any port 443
-    sudo ufw allow 2121/tcp
-    sudo ufw allow in on ens130 to any port 2121
-    sudo ufw allow 8080/tcp
-    sudo ufw allow in on ens130 to any port 8080
-    sudo ufw allow Apache
-    sudo ufw allow webmin
-    sudo ufw allow 11000
-    sudo ufw allow samba
-    sudo ufw allow 32400
-    sudo ufw allow 27015
-    sudo ufw allow 27018
-    sudo ufw allow 25565
-    sudo ufw allow 25567
-    sudo ufw allow 1688
-    sudp ufw allow 61208
-    echo -e  ${RED} 
-    sudo ufw enable 
-    echo -e  ${WHITE}
-echo -e ${CYAN}"UFW SET   ${GREEN}ADDED Successful"
-echo -e ""
-echo -e ""
-echo -e ""
-################################################################################
-#                               KMS SERVER                                     #
-################################################################################
-    echo -e  "${YELLOW} KMS SERVER INSTALL"
-    echo -e  ${WHITE} 
-    cd /opt
-    sudo git clone https://github.com/myanaloglife/py-kms.git
-    sudo echo 'kms:x:501:65534::/nonexistent:/bin/false' >> /etc/passwd
-    sudo echo 'kms:*:16342:0:99999:7:::' >> /etc/shadow
-    sudo echo '[Unit]' > /etc/systemd/system/py-kms.service
-    sudo echo 'Description=Python KMS Server' >> /etc/systemd/system/py-kms.service
-    sudo echo >> /etc/systemd/system/py-kms.service
-    sudo echo '[Service]' >> /etc/systemd/system/py-kms.service
-    sudo echo 'ExecStart=/usr/bin/python /opt/py-kms/server.py' >> /etc/systemd/system/py-kms.service
-    sudo echo 'User=kms' >> /etc/systemd/system/py-kms.service
-    sudo echo 'Restart=always' >> /etc/systemd/system/py-kms.service
-    sudo echo 'RestartSec=1' >> /etc/systemd/system/py-kms.service
-    sudo echo >> /etc/systemd/system/py-kms.service
-    sudo echo '[Install]' >> /etc/systemd/system/py-kms.service
-    sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/py-kms.service
-    systemctl enable py-kms.service
-    systemctl start py-kms.service
-   cd
-echo -e "${CYAN} KMS SERVER INSTALLED ${GREEN}Successfull" 
-echo -e ""
-echo -e ""
-echo -e ""
+
 ################################################################################
 #                               FINISH                                         #
 ################################################################################
