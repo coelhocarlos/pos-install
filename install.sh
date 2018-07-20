@@ -65,6 +65,57 @@ echo -e ""
 echo -e ""
 echo -e ""
 ################################################################################
+#                           SCRIPTS                                            #
+################################################################################
+ echo -e "${YELLOW} ADDING SCRIPTS"
+  echo -e  ${WHITE}
+cd
+mkdir ~/.scripts
+cd ~/.scripts
+sudo wget https://raw.githubusercontent.com/coelhocarlos/meganz/master/megasend.sh
+sudo wget https://raw.githubusercontent.com/coelhocarlos/sqldump/master/MysqlDump.sh
+sudo wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/duck.sh
+sudo chmod +x megasend.sh
+sudo chmod +x MysqlDump.sh
+sudo chmod +x duck.sh
+sudo touch /var/spool/cron/crontabs/root
+sudo echo "* 23 * * * ~/.scripts/mysqldump.sh #Mysql backup" >>/var/spool/cron/crontabs/root
+sudo echo "@daily ~/.scripts/megasend.sh" >> /var/spool/cron/crontabs/root
+sudo echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
+ echo -e "${CYAN} SCRIPTS ADDED ${GREEN}Successfull" 
+cd 
+cd downloads/
+echo -e ""
+echo -e ""
+echo -e ""
+################################################################################
+#                           MEGA UPLOADER                                      #
+################################################################################
+ echo -e "${YELLOW} MEGATOOLS INSTALL"
+    echo -e  "${WHITE}"
+    sudo apt install megatools wget
+    cd 
+    sudo touch ~/.megarc
+    echo "[Login]" >> ~/.megarc
+    echo "Username = carloscoelho_@live.com" >> ~/.megarc
+    echo "Password = " >> ~/.megarc
+ echo -e "${CYAN} MEGATOOLS  INSTALLED ${GREEN}Successfull"   
+ echo -e ""
+echo -e ""
+echo -e ""
+################################################################################
+#                        PLEX MEDIA SERVER                                     #
+################################################################################
+ echo -e  "${YELLOW PLEX MEDIA SERVER INSTALL"
+    echo -e  ${WHITE}
+    cd downloads/
+    wget https://downloads.plex.tv/plex-media-server/1.13.4.5251-2e6e8f841/plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
+    dpkg -i plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
+echo -e "${CYAN} PLEX MEDIA SERVER  INSTALLED ${GREEN}Successfull" 
+echo -e ""
+echo -e ""
+echo -e ""
+################################################################################
 #                                  Webmin                                      #
 ################################################################################
 
@@ -244,58 +295,8 @@ echo -e ""
 echo -e ""
 echo -e ""
 
-################################################################################
-#                        PLEX MEDIA SERVER                                     #
-################################################################################
- echo -e  "${YELLOW PLEX MEDIA SERVER INSTALL"
-    echo -e  ${WHITE}
-    wget https://downloads.plex.tv/plex-media-server/1.13.4.5251-2e6e8f841/plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
-    dpkg -i plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
-echo -e "${CYAN} PLEX MEDIA SERVER  INSTALLED ${GREEN}Successfull" 
-echo -e ""
-echo -e ""
-echo -e ""
-################################################################################
-#                           MEGA UPLOADER                                      #
-################################################################################
- echo -e "${YELLOW} MEGATOOLS INSTALL"
-    echo -e  "${WHITE}"
-    cd
-    cd /downloads
-    sudo apt install megatools wget
-    cd 
-    sudo touch ~/.megarc
-    echo "[Login]" >> ~/.megarc
-    echo "Username = carloscoelho_@live.com " >> ~/.megarc
-    echo "Password = " >> ~/.megarc
- echo -e "${CYAN} MEGATOOLS  INSTALLED ${GREEN}Successfull"   
- echo -e ""
-echo -e ""
-echo -e ""
-################################################################################
-#                           SCRIPTS                                            #
-################################################################################
- echo -e "${YELLOW} ADDING SCRIPTS"
-  echo -e  ${WHITE}
-cd
-mkdir ~/.scripts
-cd ~/.scripts
-sudo wget https://raw.githubusercontent.com/coelhocarlos/meganz/master/megasend.sh
-sudo wget https://raw.githubusercontent.com/coelhocarlos/sqldump/master/MysqlDump.sh
-sudo wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/duck.sh
-sudo chmod +x megasend.sh
-sudo chmod +x MysqlDump.sh
-sudo chmod +x duck.sh
-sudo touch /var/spool/cron/crontabs/root
-sudo echo "* 23 * * * ~/.scripts/mysqldump.sh #Mysql backup" >>/var/spool/cron/crontabs/root
-sudo echo "@daily ~/.scripts/megasend.sh" >> /var/spool/cron/crontabs/root
-sudo echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
- echo -e "${CYAN} SCRIPTS ADDED ${GREEN}Successfull" 
-cd 
-cd /downloads
-echo -e ""
-echo -e ""
-echo -e ""
+
+
 ################################################################################
 #                                   PXE                                        #
 ################################################################################
@@ -387,7 +388,7 @@ echo -e ${WHITE}
     sudo ufw allow 25565
     sudo ufw allow 25567
     sudo ufw allow 1688
-    sudp ufw allow 61208
+    sudo ufw allow 61208
     echo -e  ${RED} 
     sudo ufw enable 
     echo -e  ${WHITE}
