@@ -73,7 +73,7 @@ cd
 mkdir ~/.scripts
 cd ~/.scripts
 sudo wget https://raw.githubusercontent.com/coelhocarlos/meganz/master/megasend.sh
-sudo wget https://raw.githubusercontent.com/coelhocarlos/sqldump/master/MysqlDump.sh
+sudo wget https://raw.githubusercontent.com/coelhocarlos/sqldump/master/mysqldump.sh
 sudo wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/duck.sh
 sudo chmod +x megasend.sh
 sudo chmod +x MysqlDump.sh
