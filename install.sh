@@ -453,9 +453,9 @@ echo -e "{$BLUE} nmap -p 25565 localhost"
 echo -e {$WRITE}
 echo -e "*****************************************************"
 echo -e {$WRITE}
-sudo systemctl status minecraft@survival
-sudo systemctl start minecraft@survival
-sudo systemctl status minecraft@survival
+#sudo systemctl status minecraft@survival
+#sudo systemctl start minecraft@survival
+#sudo systemctl status minecraft@survival
 
 echo -e "{$YELLOW}Add server Porperties"
 ############################### setings minecraft ##########################################
