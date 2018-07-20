@@ -106,7 +106,7 @@ echo -e ""
 ################################################################################
 #                        PLEX MEDIA SERVER                                     #
 ################################################################################
- echo -e  "${YELLOW PLEX MEDIA SERVER INSTALL"
+ echo -e  "${YELLOW} PLEX MEDIA SERVER INSTALL"
     echo -e  ${WHITE}
     cd downloads/
     wget https://downloads.plex.tv/plex-media-server/1.13.4.5251-2e6e8f841/plexmediaserver_1.13.4.5251-2e6e8f841_amd64.deb
