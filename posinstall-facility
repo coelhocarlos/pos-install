@@ -85,7 +85,7 @@ echo -e ""
     cd 
     sudo touch ~/.megarc
     echo "[Login]" >> ~/.megarc
-    echo "Username = carloscoelho_@live.com" >> ~/.megarc
+    echo "Username = facilitybackup2017@gmail.com" >> ~/.megarc
     echo "Password = " >> ~/.megarc
  echo -e "${CYAN} MEGATOOLS  INSTALLED ${GREEN}Successfull"   
  echo -e ""
@@ -189,7 +189,11 @@ sudo adduser facility
 sudo adduser uniloc
 sudo adduser guilherme
 sudo adduser paulo
-
+sudo usermod -aG sudo facility
+sudo usermod -aG sudo uniloc
+sudo usermod -aG sudo guilherme
+sudo usermod -aG sudo paulo
+echo -e " ${CYAN} users added${GREEN}Successfull"
 ################################################################################
 #                                   SAMBA                                      #
 ################################################################################
