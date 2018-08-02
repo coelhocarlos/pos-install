@@ -268,6 +268,7 @@ echo -e  ${WHITE}
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
 	sudo echo ""
+	sudo smbpasswd -a zombie
 	sudo service smbd restart
         #sudo bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
 echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
