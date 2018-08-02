@@ -233,6 +233,10 @@ echo -e  ${WHITE}
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/paulo/" >> /etc/samba/smb.conf
 	sudo echo ""
+	sudo smbpasswd -a paulo
+	sudo smbpasswd -a facility
+        sudo smbpasswd -a uniloc
+        sudo smbpasswd -a guilherme
 	sudo service smbd restart
         #sudo bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
 echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
