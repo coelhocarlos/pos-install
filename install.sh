@@ -89,6 +89,16 @@ echo -e ""
 echo -e ""
 echo -e ""
 ################################################################################
+#                                   USERS                                      #
+################################################################################
+echo -e  "${YELLOW} ADD USERS"
+echo -e  ${WHITE}
+sudo adduser pedro
+sudo adduser andre
+sudo usermod -aG sudo pedro
+sudo usermod -aG sudo andre
+echo -e " ${CYAN} users added${GREEN}Successfull"
+################################################################################
 #                           MEGA UPLOADER                                      #
 ################################################################################
  echo -e "${YELLOW} MEGATOOLS INSTALL"
