@@ -253,6 +253,11 @@ echo -e  ${WHITE}
 	sudo echo "path = /media/hd2000//media/hd2000/Game-Servers" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo ""
+	sudo echo "[wwww]" >> /etc/samba/smb.conf
+	sudo echo "path = /var/www/" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
+	sudo echo ""
 	sudo service smbd restart
         #sudo bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
 echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
