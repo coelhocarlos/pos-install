@@ -4,7 +4,7 @@
 #In this tutorial, I use the hostname server1.example.com with the IP address 192.168.1.100 and the gateway 192.168.1.1  
 #These settings might differ for you, so you have to replace them where appropriate.  
 #Before proceeding further you need to have a basic minimal installation of Ubuntu 18.04 as explained in the tutorial.
-sudo -s
+
 #before you proceed.
 dpkg-reconfigure dash
 service apparmor stop
