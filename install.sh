@@ -76,7 +76,7 @@ sudo wget https://raw.githubusercontent.com/coelhocarlos/meganz/master/megasend.
 sudo wget https://raw.githubusercontent.com/coelhocarlos/sqldump/master/mysqldump.sh
 sudo wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/duck.sh
 sudo chmod +x megasend.sh
-sudo chmod +x MysqlDump.sh
+sudo chmod +x mysqldump.sh
 sudo chmod +x duck.sh
 sudo touch /var/spool/cron/crontabs/root
 sudo echo "* 23 * * * ~/.scripts/mysqldump.sh #Mysql backup" >>/var/spool/cron/crontabs/root
@@ -396,7 +396,9 @@ echo -e ${WHITE}
     sudo ufw allow in on ens130 to any port 2121
     sudo ufw allow 8080/tcp
     sudo ufw allow in on ens130 to any port 8080
-    sudo ufw allow Apache
+    sudo ufw allow 21/tcp
+    sudo ufw allow in on ens130 to any port 21
+    sudo ufw allow apache
     sudo ufw allow webmin
     sudo ufw allow 11000
     sudo ufw allow samba
