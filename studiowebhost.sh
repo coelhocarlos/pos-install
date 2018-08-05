@@ -24,7 +24,9 @@ RESET=`tput sgr0`
 tput setab 7
 echo -e  ${YELLOW} 
 echo -e " ${RED} CHECK UPDATES ..."
-echo -e  ${BLACK} 
+echo -e  ${BLACK}
+
+apt install -y  sudo wget
 sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
 echo -e  ${WHITE}
 tput reset
@@ -37,7 +39,7 @@ echo -e  ${WHITE}
    echo "#non free" > /etc/apt/sources.list
    echo "deb http://httpredir.debian.org/debian/ stretch main contrib non-free" > /etc/apt/sources.list
    sudo apt-update
-   sudo apt install -y  sudo wget
+   
    sudo apt install -y  wget
    sudo apt install -y  gcc wget
    sudo apt install -y  git wget
