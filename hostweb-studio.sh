@@ -127,10 +127,14 @@ echo -e ""
 
 echo -e  "{$YELLOW} WEBMIN INSTALL"
 echo -e  ${WHITE}
-   wget -qO- http://www.webmin.com/jcameron-key.asc |  apt-key add
-    add-apt-repository "deb http://download.webmin.com/download/repository sarge contrib"
-    apt update
-    apt -y install webmin
+   wget https://prdownloads.sourceforge.net/webadmin/webmin_1.890_all.deb
+   dpkg --install webmin_1.890_all.deb
+   # on error fault -> libraries -> 
+   apt-get install -f -y
+   # on port error /etc/init.d/webmin restart
+   # editing /etc/webmin/miniserv.conf port 10000 to 10222
+  nano /etc/webmin/miniserv.conf
+  /etc/init.d/webmin restart
 echo -e ${CYAN}"WEBMIN   ${GREEN}INSTALLED Successful"
 echo -e ""
 echo -e ""
