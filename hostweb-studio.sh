@@ -217,20 +217,32 @@ echo -e ""
 
 echo -e "${YELLOW} UTORRENT INSTALL"
 echo -e ${WHITE}
-     apt install -y libssl1.0.0 libssl-dev wget 
-     wget http://download-new.utorrent.com/endpoint/utserver/os/linux-x64-ubuntu-13-04/track/beta/ -O utserver.tar.gz 
-     tar -zxvf utserver.tar.gz -C /opt/ 
-     chmod 777 /opt/utorrent-server-alpha-v3_3/
-     ln -s /opt/utorrent-server-alpha-v3_3/utserver /usr/bin/utserver
-     wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/utorrent
-     chmod 755 utorrent
-     cp utorrent /etc/init.d/
-    cd /etc/init.d/ 
-     update-rc.d utorrent defaults
-     service utorrent start 
-    #systemctl status utorrent.service
-     service utorrent restart
-    cd /downloads
+apt-get update
+mkdir downloads
+cd downloads
+wget http://download.ap.bittorrent.com/track/beta/endpoint/utserver/os/linux-x64-debian-7-0
+mv linux-x64-debian-7-0 linux-x64-debian-7-0.tar.gz
+tar -zxvf linux-x64-debian-7-0.tar.gz -C /opt/
+chown root:root -R /opt/utorrent-server-alpha-v3_3/
+ln -s /opt/utorrent-server-alpha-v3_3/utserver /usr/bin/utserver
+# apt-get install libssl1.0.0 libssl-dev original squeze
+# for debian stretch
+apt-get install gdebi -y
+wget  http://security.debian.org/debian-security/pool/updates/main/o/openssl/libssl1.0.0_1.0.1t-1+deb8u9_amd64.deb
+wget  http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.0.0_1.0.2g-1ubuntu4.13_amd64.deb
+apt install gdebi dirmngr
+dpkg -i libssl1.0.0_1.0.1t-1+deb8u9_amd64.deb
+dpkg -i libssl1.0.0_1.0.2g-1ubuntu4.13_amd64.deb
+utserver -settingspath /opt/utorrent-server-alpha-v3_3/ &
+wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/utorrent
+chmod 755 utorrent
+cp utorrent /etc/init.d/
+cd /etc/init.d/
+update-rc.d utorrent defaults
+service utorrent start
+#systemctl status utorrent.service
+service utorrent restart
+
 echo -e "${CYAN} UTORRENT INSTALLED ${GREEN}Successfull"  
 echo -e ""
 echo -e ""
