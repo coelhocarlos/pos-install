@@ -38,6 +38,9 @@ tput reset
 
 echo -e "${RED} LIBRARIES INSTALL"
 echo -e  ${WHITE}
+   echo "#non free" > /etc/apt/sources.list
+   echo "deb http://httpredir.debian.org/debian/ stretch main contrib non-free" > /etc/apt/sources.list
+   sudo apt-update
    sudo apt install -y  wget
    sudo apt install -y  gcc wget
    sudo apt install -y  git wget
@@ -51,8 +54,8 @@ echo -e  ${WHITE}
    sudo apt install -y  wimtools wget
    sudo apt install -y  cabextract wget
    sudo apt install -y  ufw wget
-   
-ln -s /usr/bin/genisoimage /usr/bin/mkisof
+   sudo apt-get install firmware-linux-nonfree
+
 echo -e ${CYAN}"LIBRARIES INSTALLED --${GREEN} Successfull"
 echo -e ""
 echo -e ""
