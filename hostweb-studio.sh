@@ -34,8 +34,7 @@ tput reset
 
 echo -e "${RED} LIBRARIES INSTALL"
 echo -e  ${WHITE}
-   echo "#non free" > /etc/apt/sources.list
-   echo "deb http://httpredir.debian.org/debian/ stretch main contrib non-free" > /etc/apt/sources.list
+   
     apt-update
     apt install -y  wget
     apt install -y  gcc wget
@@ -50,7 +49,7 @@ echo -e  ${WHITE}
     apt install -y  wimtools wget
     apt install -y  cabextract wget
     apt install -y  ufw wget
-    apt-get install firmware-linux-nonfree
+    apt install -y firmware-linux-nonfree wget
 
 echo -e ${CYAN}"LIBRARIES INSTALLED --${GREEN} Successfull"
 echo -e ""
