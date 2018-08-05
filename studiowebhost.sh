@@ -25,7 +25,11 @@ tput setab 7
 echo -e  ${YELLOW} 
 echo -e " ${RED} CHECK UPDATES ..."
 echo -e  ${BLACK} 
+apt install -y  sudo wget
 sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
+sudo passwd root
+cd
+su -
 echo -e  ${WHITE}
 tput reset
 ################################################################################
@@ -47,7 +51,7 @@ echo -e  ${WHITE}
    sudo apt install -y  wimtools wget
    sudo apt install -y  cabextract wget
    sudo apt install -y  ufw wget
-   sudo apt install -y  sudo wget
+   
 ln -s /usr/bin/genisoimage /usr/bin/mkisof
 echo -e ${CYAN}"LIBRARIES INSTALLED --${GREEN} Successfull"
 echo -e ""
