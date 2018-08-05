@@ -25,9 +25,7 @@ tput setab 7
 echo -e  ${YELLOW} 
 echo -e " ${RED} CHECK UPDATES ..."
 echo -e  ${BLACK}
-
-apt install -y  sudo wget
-sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
+apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
 echo -e  ${WHITE}
 tput reset
 ################################################################################
@@ -38,22 +36,21 @@ echo -e "${RED} LIBRARIES INSTALL"
 echo -e  ${WHITE}
    echo "#non free" > /etc/apt/sources.list
    echo "deb http://httpredir.debian.org/debian/ stretch main contrib non-free" > /etc/apt/sources.list
-   sudo apt-update
-   
-   sudo apt install -y  wget
-   sudo apt install -y  gcc wget
-   sudo apt install -y  git wget
-   sudo apt install -y  make wget
-   sudo apt install -y  touch wget
-   sudo apt install -y  ntfs-3g wget
-   sudo apt install -y  testdisk wget
-   sudo apt install -y  glances wget
-   sudo apt install -y  iptraf wget
-   sudo apt install -y  genisoimage wget
-   sudo apt install -y  wimtools wget
-   sudo apt install -y  cabextract wget
-   sudo apt install -y  ufw wget
-   sudo apt-get install firmware-linux-nonfree
+    apt-update
+    apt install -y  wget
+    apt install -y  gcc wget
+    apt install -y  git wget
+    apt install -y  make wget
+    apt install -y  touch wget
+    apt install -y  ntfs-3g wget
+    apt install -y  testdisk wget
+    apt install -y  glances wget
+    apt install -y  iptraf wget
+    apt install -y  genisoimage wget
+    apt install -y  wimtools wget
+    apt install -y  cabextract wget
+    apt install -y  ufw wget
+    apt-get install firmware-linux-nonfree
 
 echo -e ${CYAN}"LIBRARIES INSTALLED --${GREEN} Successfull"
 echo -e ""
@@ -80,16 +77,16 @@ echo -e ""
 cd
 mkdir ~/.scripts
 cd ~/.scripts
-sudo wget https://raw.githubusercontent.com/coelhocarlos/meganz/master/megasend.sh
-sudo wget https://raw.githubusercontent.com/coelhocarlos/sqldump/master/mysqldump.sh
-sudo wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/duck.sh
-sudo chmod +x megasend.sh
-sudo chmod +x mysqldump.sh
-sudo chmod +x duck.sh
-sudo touch /var/spool/cron/crontabs/root
-sudo echo "* 23 * * * ~/.scripts/mysqldump.sh #Mysql backup" >>/var/spool/cron/crontabs/root
-sudo echo "@daily ~/.scripts/megasend.sh" >> /var/spool/cron/crontabs/root
-sudo echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
+ wget https://raw.githubusercontent.com/coelhocarlos/meganz/master/megasend.sh
+ wget https://raw.githubusercontent.com/coelhocarlos/sqldump/master/mysqldump.sh
+ wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/duck.sh
+ chmod +x megasend.sh
+ chmod +x mysqldump.sh
+ chmod +x duck.sh
+ touch /var/spool/cron/crontabs/root
+ echo "* 23 * * * ~/.scripts/mysqldump.sh #Mysql backup" >>/var/spool/cron/crontabs/root
+ echo "@daily ~/.scripts/megasend.sh" >> /var/spool/cron/crontabs/root
+ echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
  echo -e "${CYAN} SCRIPTS ADDED ${GREEN}Successfull" 
 cd 
 cd tmp/
@@ -101,9 +98,9 @@ echo -e ""
 ################################################################################
  echo -e "${YELLOW} MEGATOOLS INSTALL"
     echo -e  "${WHITE}"
-    sudo apt install megatools wget
+     apt install megatools wget
     cd 
-    sudo touch ~/.megarc
+     touch ~/.megarc
     echo "[Login]" >> ~/.megarc
     echo "Username = carloscoelho_@live.com" >> ~/.megarc
     echo "Password = " >> ~/.megarc
@@ -130,10 +127,10 @@ echo -e ""
 
 echo -e  "{$YELLOW} WEBMIN INSTALL"
 echo -e  ${WHITE}
-   wget -qO- http://www.webmin.com/jcameron-key.asc | sudo apt-key add
-   sudo add-apt-repository "deb http://download.webmin.com/download/repository sarge contrib"
-   sudo apt update
-   sudo apt -y install webmin
+   wget -qO- http://www.webmin.com/jcameron-key.asc |  apt-key add
+    add-apt-repository "deb http://download.webmin.com/download/repository sarge contrib"
+    apt update
+    apt -y install webmin
 echo -e ${CYAN}"WEBMIN   ${GREEN}INSTALLED Successful"
 echo -e ""
 echo -e ""
@@ -144,8 +141,8 @@ echo -e ""
 ################################################################################
 echo -e  "${YELLOW} ADD USERS"
 echo -e  ${WHITE}
-sudo adduser minduim
-sudo usermod -aG sudo minduim
+ adduser minduim
+ usermod -aG  minduim
 echo -e " ${CYAN} users added${GREEN}Successfull"
 ################################################################################
 #                                   SAMBA                                      #
@@ -153,59 +150,59 @@ echo -e " ${CYAN} users added${GREEN}Successfull"
 
 echo -e  "${YELLOW} SAMBA INSTALL"
 echo -e  ${WHITE}
-        sudo apt install -y samba wget 
-        #sudo cp /etc/samba/smb.conf /etc/samba/smb.conf_backup
+         apt install -y samba wget 
+        # cp /etc/samba/smb.conf /etc/samba/smb.conf_backup
         #touch /etc/samba/smb.conf
     
-        sudo echo  "[wds_share]" >> /etc/samba/smb.conf
-	sudo echo "path = /media/hd2000/wds_share" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-        sudo echo ""
-        sudo echo "[imagens]" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "path = /media/hd2000/Imagens" >> /etc/samba/smb.conf
-	sudo echo ""
-        sudo echo "[media]" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "path = /media/hd2000/Media" >> /etc/samba/smb.conf
-        sudo echo ""
-        sudo echo "[manutencao]" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "path = /media/hd2000/Manutencao" >> /etc/samba/smb.conf
-	sudo echo ""
-        sudo echo "[www]" >> /etc/samba/smb.conf
-	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "path = /var/www" >> /etc/samba/smb.conf
-        sudo echo ""
-        sudo echo "[programacao]" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
-	sudo echo "path = /media/hd2000/Programacao" >> /etc/samba/smb.conf
-        sudo echo ""
-        sudo echo "[clients]" >> /etc/samba/smb.conf
-	sudo echo "path = /media/hd2000/Clientes" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
-	sudo echo ""
-	sudo echo "[push]" >> /etc/samba/smb.conf
-	sudo echo "path = /media/hd2000/torrent/torrent-push" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo ""
-	sudo echo "[Game-Server]" >> /etc/samba/smb.conf
-	sudo echo "path = /media/hd2000//media/hd2000/Game-Servers" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo ""
-	sudo echo "[wwww]" >> /etc/samba/smb.conf
-	sudo echo "path = /var/www/" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "valid users = zombie" >> /etc/samba/smb.conf
-	sudo echo ""
-	sudo smbpasswd -a zombie
-	sudo smbpasswd -a minduim
+         echo  "[wds_share]" >> /etc/samba/smb.conf
+	 echo "path = /media/hd2000/wds_share" >> /etc/samba/smb.conf
+	 echo "writeable = yes" >> /etc/samba/smb.conf
+         echo ""
+         echo "[imagens]" >> /etc/samba/smb.conf
+	 echo "writeable = yes" >> /etc/samba/smb.conf
+	 echo "path = /media/hd2000/Imagens" >> /etc/samba/smb.conf
+	 echo ""
+         echo "[media]" >> /etc/samba/smb.conf
+	 echo "writeable = yes" >> /etc/samba/smb.conf
+	 echo "path = /media/hd2000/Media" >> /etc/samba/smb.conf
+         echo ""
+         echo "[manutencao]" >> /etc/samba/smb.conf
+	 echo "writeable = yes" >> /etc/samba/smb.conf
+	 echo "path = /media/hd2000/Manutencao" >> /etc/samba/smb.conf
+	 echo ""
+         echo "[www]" >> /etc/samba/smb.conf
+	 echo "valid users = zombie" >> /etc/samba/smb.conf
+	 echo "writeable = yes" >> /etc/samba/smb.conf
+	 echo "path = /var/www" >> /etc/samba/smb.conf
+         echo ""
+         echo "[programacao]" >> /etc/samba/smb.conf
+	 echo "writeable = yes" >> /etc/samba/smb.conf
+	 echo "valid users = zombie" >> /etc/samba/smb.conf
+	 echo "path = /media/hd2000/Programacao" >> /etc/samba/smb.conf
+         echo ""
+         echo "[clients]" >> /etc/samba/smb.conf
+	 echo "path = /media/hd2000/Clientes" >> /etc/samba/smb.conf
+	 echo "writeable = yes" >> /etc/samba/smb.conf
+	 echo "valid users = zombie" >> /etc/samba/smb.conf
+	 echo ""
+	 echo "[push]" >> /etc/samba/smb.conf
+	 echo "path = /media/hd2000/torrent/torrent-push" >> /etc/samba/smb.conf
+	 echo "writeable = yes" >> /etc/samba/smb.conf
+	 echo ""
+	 echo "[Game-Server]" >> /etc/samba/smb.conf
+	 echo "path = /media/hd2000//media/hd2000/Game-Servers" >> /etc/samba/smb.conf
+	 echo "writeable = yes" >> /etc/samba/smb.conf
+	 echo ""
+	 echo "[wwww]" >> /etc/samba/smb.conf
+	 echo "path = /var/www/" >> /etc/samba/smb.conf
+	 echo "writeable = yes" >> /etc/samba/smb.conf
+	 echo "valid users = zombie" >> /etc/samba/smb.conf
+	 echo ""
+	 smbpasswd -a zombie
+	 smbpasswd -a minduim
   
-	sudo service smbd restart
-        #sudo bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
+	 service smbd restart
+        # bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
 echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
 echo -e ""
 echo -e ""
@@ -216,19 +213,19 @@ echo -e ""
 
 echo -e "${YELLOW} UTORRENT INSTALL"
 echo -e ${WHITE}
-    sudo apt install -y libssl1.0.0 libssl-dev wget 
-    sudo wget http://download-new.utorrent.com/endpoint/utserver/os/linux-x64-ubuntu-13-04/track/beta/ -O utserver.tar.gz 
-    sudo tar -zxvf utserver.tar.gz -C /opt/ 
-    sudo chmod 777 /opt/utorrent-server-alpha-v3_3/
-    sudo ln -s /opt/utorrent-server-alpha-v3_3/utserver /usr/bin/utserver
-    sudo wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/utorrent
-    sudo chmod 755 utorrent
-    sudo cp utorrent /etc/init.d/
+     apt install -y libssl1.0.0 libssl-dev wget 
+     wget http://download-new.utorrent.com/endpoint/utserver/os/linux-x64-ubuntu-13-04/track/beta/ -O utserver.tar.gz 
+     tar -zxvf utserver.tar.gz -C /opt/ 
+     chmod 777 /opt/utorrent-server-alpha-v3_3/
+     ln -s /opt/utorrent-server-alpha-v3_3/utserver /usr/bin/utserver
+     wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/utorrent
+     chmod 755 utorrent
+     cp utorrent /etc/init.d/
     cd /etc/init.d/ 
-    sudo update-rc.d utorrent defaults
-    sudo service utorrent start 
+     update-rc.d utorrent defaults
+     service utorrent start 
     #systemctl status utorrent.service
-    sudo service utorrent restart
+     service utorrent restart
     cd /downloads
 echo -e "${CYAN} UTORRENT INSTALLED ${GREEN}Successfull"  
 echo -e ""
@@ -240,20 +237,20 @@ echo -e ""
     echo -e  "${YELLOW} KMS SERVER INSTALL"
     echo -e  ${WHITE} 
     cd /opt
-    sudo git clone https://github.com/myanaloglife/py-kms.git
-    sudo echo 'kms:x:501:65534::/nonexistent:/bin/false' >> /etc/passwd
-    sudo echo 'kms:*:16342:0:99999:7:::' >> /etc/shadow
-    sudo echo '[Unit]' > /etc/systemd/system/py-kms.service
-    sudo echo 'Description=Python KMS Server' >> /etc/systemd/system/py-kms.service
-    sudo echo >> /etc/systemd/system/py-kms.service
-    sudo echo '[Service]' >> /etc/systemd/system/py-kms.service
-    sudo echo 'ExecStart=/usr/bin/python /opt/py-kms/server.py' >> /etc/systemd/system/py-kms.service
-    sudo echo 'User=kms' >> /etc/systemd/system/py-kms.service
-    sudo echo 'Restart=always' >> /etc/systemd/system/py-kms.service
-    sudo echo 'RestartSec=1' >> /etc/systemd/system/py-kms.service
-    sudo echo >> /etc/systemd/system/py-kms.service
-    sudo echo '[Install]' >> /etc/systemd/system/py-kms.service
-    sudo echo 'WantedBy=multi-user.target' >> /etc/systemd/system/py-kms.service
+     git clone https://github.com/myanaloglife/py-kms.git
+     echo 'kms:x:501:65534::/nonexistent:/bin/false' >> /etc/passwd
+     echo 'kms:*:16342:0:99999:7:::' >> /etc/shadow
+     echo '[Unit]' > /etc/systemd/system/py-kms.service
+     echo 'Description=Python KMS Server' >> /etc/systemd/system/py-kms.service
+     echo >> /etc/systemd/system/py-kms.service
+     echo '[Service]' >> /etc/systemd/system/py-kms.service
+     echo 'ExecStart=/usr/bin/python /opt/py-kms/server.py' >> /etc/systemd/system/py-kms.service
+     echo 'User=kms' >> /etc/systemd/system/py-kms.service
+     echo 'Restart=always' >> /etc/systemd/system/py-kms.service
+     echo 'RestartSec=1' >> /etc/systemd/system/py-kms.service
+     echo >> /etc/systemd/system/py-kms.service
+     echo '[Install]' >> /etc/systemd/system/py-kms.service
+     echo 'WantedBy=multi-user.target' >> /etc/systemd/system/py-kms.service
     systemctl enable py-kms.service
     systemctl start py-kms.service
    cd
@@ -268,40 +265,40 @@ echo -e ""
 echo -e "${YELLOW} PXE INSTALL"
 echo -e ${WHITE}
 # tftp PXE
-     sudo apt-get install tftpd-hpa -y
+      apt-get install tftpd-hpa -y
 #nano /etc/default/tftpd-hpa
-     sudo cp /etc/default/tftpd-hpa /etc/default/tftpd-hpa.old
-     sudo rm /etc/default/tftpd-hpa
-     sudo cd /etc/default/
-     sudo wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/tftpd-hpa
-     sudo /etc/init.d/tftpd-hpa restart
+      cp /etc/default/tftpd-hpa /etc/default/tftpd-hpa.old
+      rm /etc/default/tftpd-hpa
+      cd /etc/default/
+      wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/tftpd-hpa
+      /etc/init.d/tftpd-hpa restart
 cd 
-     sudo apt-get install dnsmasq -y
-     sudo cp /etc/dnsmasq.conf /etc/dnsmasq.conf.old
-     sudo rm /etc/dnsmasq.conf
+      apt-get install dnsmasq -y
+      cp /etc/dnsmasq.conf /etc/dnsmasq.conf.old
+      rm /etc/dnsmasq.conf
 cd /etc/
-    sudo wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/dnsmasq.conf
-    sudo /etc/init.d/dnsmasq restart
+     wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/dnsmasq.conf
+     /etc/init.d/dnsmasq restart
 cd 
-    sudo apt-get install isc-dhcp-server -y
-    sudo cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.old
-    sudo cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.old
-    sudo rm /etc/dhcp/dhcpd.conf
-    sudo rm /etc/default/isc-dhcp-server
-    sudo cd /etc/default/
-    sudo wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/isc-dhcp-server
+     apt-get install isc-dhcp-server -y
+     cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.old
+     cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.old
+     rm /etc/dhcp/dhcpd.conf
+     rm /etc/default/isc-dhcp-server
+     cd /etc/default/
+     wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/isc-dhcp-server
 cd
 cd /etc/dhcp/
-    sudo wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/dhcpd.conf
+     wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/dhcpd.conf
 cd 
-    sudo service isc-dhcp-server restart
+     service isc-dhcp-server restart
 
-    sudo cp /etc/network/interfaces /etc/network/interfaces.old
-    sudo rm /etc/network/interfaces
+     cp /etc/network/interfaces /etc/network/interfaces.old
+     rm /etc/network/interfaces
 cd /etc/network/
-    sudo wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/interfaces
-    sudo /etc/init.d/networking restart
-    sudo /etc/init.d/tftpd-hpa restart
+     wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/interfaces
+     /etc/init.d/networking restart
+     /etc/init.d/tftpd-hpa restart
 echo -e "${CYAN} PXE INSTALLED ${GREEN} Successfull" 
 echo -e ""
 echo -e ""
@@ -311,17 +308,17 @@ echo -e ""
 ################################################################################
 echo -e "${YELLOW} INSTALL MINECRAFT"
     echo -e  ${WHITE}
-sudo apt update
-sudo apt install wget screen default-jdk nmap
+ apt update
+ apt install wget screen default-jdk nmap
 
-sudo useradd -m -r -d /media/hd2000/Game-Servers/minecraft minecraft
+ useradd -m -r -d /media/hd2000/Game-Servers/minecraft minecraft
 cd /media/hd2000/Game-Servers/
-sudo mkdir minecraft
-sudo cd minecraft 
-sudo mkdir survival
-sudo wget -O /media/hd2000/Game-Servers/minecraft/survival/minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar
-sudo bash -c "echo eula=true > /media/hd2000/Game-Servers/minecraft/survival/eula.txt"
-sudo chown -R minecraft /media/hd2000/Game-Servers/minecraft/survival/
+ mkdir minecraft
+ cd minecraft 
+ mkdir survival
+ wget -O /media/hd2000/Game-Servers/minecraft/survival/minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar
+ bash -c "echo eula=true > /media/hd2000/Game-Servers/minecraft/survival/eula.txt"
+ chown -R minecraft /media/hd2000/Game-Servers/minecraft/survival/
 echo "[Unit]" >> /etc/systemd/system/minecraft@.service
 echo "Description=Minecraft Server: %i" >> /etc/systemd/system/minecraft@.service
 echo "After=network.target" >> /etc/systemd/system/minecraft@.service
@@ -352,19 +349,19 @@ echo -e {$WRITE}
 echo -e "*****************************************************"
 echo -e {$WRITE}
 echo -e "{$RED} for execute minecraft server use"
-echo -e "{$BLUE} sudo systemctl start minecraft@survival"
+echo -e "{$BLUE}  systemctl start minecraft@survival"
 echo -e "{$RED} for confirm status"
-echo -e "{$BLUE} sudo systemctl status minecraft@survival"
+echo -e "{$BLUE}  systemctl status minecraft@survival"
 echo -e "{$RED} for execute auto start on boot"
-echo -e "{$BLUE} sudo systemctl enable minecraft@survival"
+echo -e "{$BLUE}  systemctl enable minecraft@survival"
 echo -e "{$RED} check minecraft port"
 echo -e "{$BLUE} nmap -p 25565 localhost"
 echo -e {$WRITE}
 echo -e "*****************************************************"
 echo -e {$WRITE}
-#sudo systemctl status minecraft@survival
-#sudo systemctl start minecraft@survival
-#sudo systemctl status minecraft@survival
+# systemctl status minecraft@survival
+# systemctl start minecraft@survival
+# systemctl status minecraft@survival
 
 echo -e "{$YELLOW}Add server Porperties"
 ############################### setings minecraft ##########################################
@@ -412,41 +409,41 @@ echo -e ""
 echo -e ""
 echo -e ""
 
-sudo systemctl stop minecraft@survival
-sudo systemctl enable minecraft@survival
-sudo systemctl start minecraft@survival
-#sudo systemctl status minecraft@survival
+ systemctl stop minecraft@survival
+ systemctl enable minecraft@survival
+ systemctl start minecraft@survival
+# systemctl status minecraft@survival
 ################################################################################
 #                                  UFW                                         #
 ################################################################################
 echo -e "$YELLOW} UFW SET"
 echo -e ${WHITE}
-    sudo ufw default deny incoming
-    sudo ufw default allow outgoing
-    sudo ufw allow 22/tcp
-    sudo ufw allow 69
-    sudo ufw allow in on ens130 to any port 69
-    sudo ufw allow 80/tcp
-    sudo ufw allow in on ens130 to any port 80
-    sudo ufw allow 443/tcp
-    sudo ufw allow in on ens130 to any port 443
-    sudo ufw allow 2121/tcp
-    sudo ufw allow in on ens130 to any port 2121
-    sudo ufw allow 8080/tcp
-    sudo ufw allow in on ens130 to any port 8080
-    sudo ufw allow Apache
-    sudo ufw allow webmin
-    sudo ufw allow 11000
-    sudo ufw allow samba
-    sudo ufw allow 32400
-    sudo ufw allow 27015
-    sudo ufw allow 27018
-    sudo ufw allow 25565
-    sudo ufw allow 25567
-    sudo ufw allow 1688
-    sudo ufw allow 61208
+     ufw default deny incoming
+     ufw default allow outgoing
+     ufw allow 22/tcp
+     ufw allow 69
+     ufw allow in on ens130 to any port 69
+     ufw allow 80/tcp
+     ufw allow in on ens130 to any port 80
+     ufw allow 443/tcp
+     ufw allow in on ens130 to any port 443
+     ufw allow 2121/tcp
+     ufw allow in on ens130 to any port 2121
+     ufw allow 8080/tcp
+     ufw allow in on ens130 to any port 8080
+     ufw allow Apache
+     ufw allow webmin
+     ufw allow 11000
+     ufw allow samba
+     ufw allow 32400
+     ufw allow 27015
+     ufw allow 27018
+     ufw allow 25565
+     ufw allow 25567
+     ufw allow 1688
+     ufw allow 61208
     echo -e  ${RED} 
-    sudo ufw enable 
+     ufw enable 
     echo -e  ${WHITE}
 echo -e ${CYAN}"UFW SET   ${GREEN}ADDED Successful"
 echo -e ""
