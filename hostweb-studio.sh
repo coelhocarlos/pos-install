@@ -89,7 +89,7 @@ cd ~/.scripts
  echo "5 * * * * ~/.scripts/duck.sh" >> /var/spool/cron/crontabs/root
  echo -e "${CYAN} SCRIPTS ADDED ${GREEN}Successfull" 
 cd 
-cd tmp/
+cd /tmp
 echo -e ""
 echo -e ""
 echo -e ""
