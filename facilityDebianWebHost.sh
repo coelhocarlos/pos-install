@@ -135,31 +135,41 @@ echo -e  ${WHITE}
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/facility/" >> /etc/samba/smb.conf
 	sudo echo ""
+	
         sudo echo "[uniloc]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/uniloc/" >> /etc/samba/smb.conf
   
-  sudo echo "[remessa]" >> /etc/samba/smb.conf
+        sudo echo "[remessa]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/uniloc/remessa/" >> /etc/samba/smb.conf
 	sudo echo ""
-  sudo echo "[retorno]" >> /etc/samba/smb.conf
+	
+        sudo echo "[retorno]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/uniloc/retorno/" >> /etc/samba/smb.conf
 	sudo echo ""
-  sudo echo "[banco]" >> /etc/samba/smb.conf
+	
+        sudo echo "[banco]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/uniloc/banco/" >> /etc/samba/smb.conf
 	sudo echo ""
+	
+	sudo echo "[backup]" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "path = /home/uniloc/backup/" >> /etc/samba/smb.conf
+	sudo echo ""
   
-  sudo echo "[guilherme]" >> /etc/samba/smb.conf
+        sudo echo "[guilherme]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/guilherme/" >> /etc/samba/smb.conf
 	sudo echo ""
-  sudo echo "[paulo]" >> /etc/samba/smb.conf
+	
+        sudo echo "[paulo]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/paulo/" >> /etc/samba/smb.conf
 	sudo echo ""
+	sudo smbpasswd -a ccadm
 	sudo smbpasswd -a paulo
 	sudo smbpasswd -a facility
         sudo smbpasswd -a uniloc
