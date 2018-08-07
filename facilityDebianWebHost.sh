@@ -24,6 +24,7 @@ tput setab 7
 echo -e  ${YELLOW} 
 echo -e " ${RED} CHECK UPDATES ..."
 echo -e  ${BLACK} 
+apt install -y sudo wget
 sudo apt-get update && apt-get -y upgrade &&  apt-get -y dist-upgrade
 echo -e  ${WHITE}
 tput reset
@@ -83,7 +84,7 @@ echo -e ""
     cd 
     sudo touch ~/.megarc
     echo "[Login]" >> ~/.megarc
-    echo "Username = facilityservicos2017@gmail.com" >> ~/.megarc
+    echo "Username = facilitybackup2017@gmail.com" >> ~/.megarc
     echo "Password = " >> ~/.megarc
  echo -e "${CYAN} MEGATOOLS  INSTALLED ${GREEN}Successfull"   
  echo -e ""
@@ -180,22 +181,7 @@ echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
 echo -e ""
 echo -e ""
 echo -e ""
-################################################################################
-#                                   USERS                                      #
-################################################################################
-echo -e  "${YELLOW} ADD USERS"
-echo -e  ${WHITE}
-sudo adduser facility
-sudo adduser uniloc
-sudo adduser guilherme
-sudo adduser paulo
-sudo adduser ccstudio
-sudo usermod -aG sudo facility
-sudo usermod -aG sudo uniloc
-sudo usermod -aG sudo guilherme
-sudo usermod -aG sudo paulo
-sudo usermod -aG sudo ccstudio
-echo -e " ${CYAN} users added${GREEN}Successfull"
+
 ################################################################################
 #                                   SAMBA                                      #
 ################################################################################
@@ -358,7 +344,7 @@ cd /tmp
 wget --no-check-certificate https://github.com/servisys/ispconfig_setup/archive/master.zip
 unzip master.zip
 cd ispconfig_setup-master/
-./install.shc
+./install.sh
 ################################################################################
 #                                  FIM                                         #
 ################################################################################
