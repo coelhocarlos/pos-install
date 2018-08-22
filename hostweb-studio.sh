@@ -35,7 +35,7 @@ tput reset
 echo -e "${RED} LIBRARIES INSTALL"
 echo -e  ${WHITE}
    
-    apt-update
+    apt update
     apt install -y  wget
     apt install -y  gcc wget
     apt install -y  git wget
