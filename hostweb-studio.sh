@@ -437,15 +437,15 @@ echo -e ${WHITE}
      ufw default allow outgoing
      ufw allow 22/tcp
      ufw allow 69
-     ufw allow in on ens130 to any port 69
+     ufw allow in on enp0s18 to any port 69
      ufw allow 80/tcp
-     ufw allow in on ens130 to any port 80
+     ufw allow in on enp0s18 to any port 80
      ufw allow 443/tcp
-     ufw allow in on ens130 to any port 443
+     ufw allow in on enp0s18 to any port 443
      ufw allow 2121/tcp
-     ufw allow in on ens130 to any port 2121
+     ufw allow in on enp0s18 to any port 2121
      ufw allow 8080/tcp
-     ufw allow in on ens130 to any port 8080
+     ufw allow in on enp0s18 to any port 8080
      ufw allow Apache
      ufw allow webmin
      ufw allow 10000
