@@ -448,6 +448,7 @@ echo -e ${WHITE}
      ufw allow in on ens130 to any port 8080
      ufw allow Apache
      ufw allow webmin
+     ufw allow 10000
      ufw allow 11000
      ufw allow samba
      ufw allow 32400
