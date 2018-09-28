@@ -59,9 +59,9 @@ echo -e ""
 cd
 mkdir ~/.scripts
 cd ~/.scripts
-sudo wget https://raw.githubusercontent.com/coelhocarlos/meganz/master/megasend.sh
-sudo wget https://raw.githubusercontent.com/coelhocarlos/sqldump/master/mysqldump.sh
-sudo wget https://raw.githubusercontent.com/coelhocarlos/DebianScripts/master/duck.sh
+sudo wget https://raw.githubusercontent.com/coelhocarlos/pos-install/master/Facility2018/scripts/mega_send.sh
+sudo wget https://github.com/coelhocarlos/pos-install/blob/master/Facility2018/scripts/mysql_dump.sh
+sudo wget https://raw.githubusercontent.com/coelhocarlos/pos-install/master/Facility2018/scripts/duck.sh
 sudo chmod +x megasend.sh
 sudo chmod +x mysqldump.sh
 sudo chmod +x duck.sh
@@ -248,14 +248,14 @@ apt-get install tftpd-hpa -y
 cp /etc/default/tftpd-hpa /etc/default/tftpd-hpa.old
 rm /etc/default/tftpd-hpa
 cd /etc/default/
-wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/tftpd-hpa
+wget https://raw.githubusercontent.com/coelhocarlos/pos-install/master/Facility2018/pxe/tftpd-hpa
 /etc/init.d/tftpd-hpa restart
 cd 
 apt-get install dnsmasq -y
 cp /etc/dnsmasq.conf /etc/dnsmasq.conf.old
 rm /etc/dnsmasq.conf
 cd /etc/
-wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/dnsmasq.conf
+wget https://raw.githubusercontent.com/coelhocarlos/pos-install/master/Facility2018/pxe/dnsmasq.conf
 /etc/init.d/dnsmasq restart
 cd 
 apt-get install isc-dhcp-server -y
@@ -274,7 +274,7 @@ service isc-dhcp-server restart
 cp /etc/network/interfaces /etc/network/interfaces.old
 rm /etc/network/interfaces
 cd /etc/network/
-wget https://raw.githubusercontent.com/coelhocarlos/debian9-install/master/interfaces
+wget https://raw.githubusercontent.com/coelhocarlos/pos-install/master/Facility2018/pxe/interfaces
 /etc/init.d/networking restart
 ################################################################################
 #                                  UFW                                         #
