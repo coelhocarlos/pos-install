@@ -44,9 +44,9 @@ echo -e  ${WHITE}
    sudo apt install -y  glances wget
    sudo apt install -y  iptraf wget
    sudo apt install -y  genisoimage wget
-   sudo apt install -y  wimtools -wget
-   sudo apt install -y  cabextract -wget
-   sudo apt install -y  ufw -wget
+   sudo apt install -y  wimtools wget
+   sudo apt install -y  cabextract wget
+   sudo apt install -y  ufw wget
 ln -s /usr/bin/genisoimage /usr/bin/mkisof
 echo -e ${CYAN}"LIBRARIES INSTALLED --${GREEN} Successfull"
 echo -e ""
@@ -113,14 +113,15 @@ echo -e ""
 ################################################################################
 echo -e  "${YELLOW} ADD USERS"
 echo -e  ${WHITE}
+sudo adduser financeiro
+sudo adduser secretaria
+sudo adduser outlook
 sudo adduser facility
 sudo adduser uniloc
 sudo adduser guilherme
 sudo adduser paulo
-sudo usermod -aG sudo facility
-sudo usermod -aG sudo uniloc
-sudo usermod -aG sudo guilherme
-sudo usermod -aG sudo paulo
+#sudo usermod -aG sudo ccadm
+
 echo -e " ${CYAN} users added${GREEN}Successfull"
 ################################################################################
 #                                   SAMBA                                      #
@@ -136,6 +137,7 @@ echo -e  ${WHITE}
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/facility/" >> /etc/samba/smb.conf
 	sudo echo ""
+	
   sudo echo "[uniloc]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/uniloc/" >> /etc/samba/smb.conf
@@ -144,10 +146,12 @@ echo -e  ${WHITE}
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/uniloc/remessa/" >> /etc/samba/smb.conf
 	sudo echo ""
+	
   sudo echo "[retorno]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/uniloc/retorno/" >> /etc/samba/smb.conf
 	sudo echo ""
+	
   sudo echo "[banco]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/uniloc/banco/" >> /etc/samba/smb.conf
@@ -157,11 +161,31 @@ echo -e  ${WHITE}
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/guilherme/" >> /etc/samba/smb.conf
 	sudo echo ""
+	
   sudo echo "[paulo]" >> /etc/samba/smb.conf
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/paulo/" >> /etc/samba/smb.conf
 	sudo echo ""
+	
+  sudo echo "[financeiro]" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "path = /home/financeiro/" >> /etc/samba/smb.conf
+	sudo echo ""
+	
+  sudo echo "[secretaria]" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "path = /home/secretaria/" >> /etc/samba/smb.conf
+	sudo echo ""
+	
+  sudo echo "[outlook]" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "path = /home/outlook/" >> /etc/samba/smb.conf
+	sudo echo ""
+	
 	sudo smbpasswd -a paulo
+	sudo smbpasswd -a financeiro
+	sudo smbpasswd -a secreataria
+	sudo smbpasswd -a outlook
 	sudo smbpasswd -a facility
         sudo smbpasswd -a uniloc
         sudo smbpasswd -a guilherme
@@ -171,9 +195,6 @@ echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
 echo -e ""
 echo -e ""
 echo -e ""
-
-
-
 
 ################################################################################
 #                               KMS SERVER                                     #
