@@ -117,10 +117,11 @@ sudo adduser facility
 sudo adduser uniloc
 sudo adduser guilherme
 sudo adduser paulo
-sudo usermod -aG sudo facility
-sudo usermod -aG sudo uniloc
-sudo usermod -aG sudo guilherme
-sudo usermod -aG sudo paulo
+sudo adduser secretaria
+sudo adduser financeiro
+sudo adduser outlook
+#sudo usermod -aG sudo facility
+
 echo -e " ${CYAN} users added${GREEN}Successfull"
 ################################################################################
 #                                   SAMBA                                      #
@@ -170,11 +171,31 @@ echo -e  ${WHITE}
 	sudo echo "writeable = yes" >> /etc/samba/smb.conf
 	sudo echo "path = /home/paulo/" >> /etc/samba/smb.conf
 	sudo echo ""
+	
+	sudo echo "[secretaria]" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "path = /home/secretaria/" >> /etc/samba/smb.conf
+	sudo echo ""
+	
+	sudo echo "[financeiro]" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "path = /home/financeiro/" >> /etc/samba/smb.conf
+	sudo echo ""
+	
+	sudo echo "[outlook]" >> /etc/samba/smb.conf
+	sudo echo "writeable = yes" >> /etc/samba/smb.conf
+	sudo echo "path = /home/outlook/" >> /etc/samba/smb.conf
+	sudo echo ""
+	
 	sudo smbpasswd -a ccadm
 	sudo smbpasswd -a paulo
 	sudo smbpasswd -a facility
         sudo smbpasswd -a uniloc
         sudo smbpasswd -a guilherme
+	sudo smbpasswd -a secretaria
+	sudo smbpasswd -a financeiro
+	sudo smbpasswd -a outlook
+	
 	sudo service smbd restart
         #sudo bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
 echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
@@ -182,55 +203,7 @@ echo -e ""
 echo -e ""
 echo -e ""
 
-################################################################################
-#                                   SAMBA                                      #
-################################################################################
 
-echo -e  "${YELLOW} SAMBA INSTALL"
-echo -e  ${WHITE}
-        sudo apt install -y samba wget 
-        #sudo cp /etc/samba/smb.conf /etc/samba/smb.conf_backup
-        #touch /etc/samba/smb.conf
-        
-        sudo echo "[facility]" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "path = /home/facility/" >> /etc/samba/smb.conf
-	sudo echo ""
-        sudo echo "[uniloc]" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "path = /home/uniloc/" >> /etc/samba/smb.conf
-  
-  sudo echo "[remessa]" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "path = /home/uniloc/remessa/" >> /etc/samba/smb.conf
-	sudo echo ""
-  sudo echo "[retorno]" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "path = /home/uniloc/retorno/" >> /etc/samba/smb.conf
-	sudo echo ""
-  sudo echo "[banco]" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "path = /home/uniloc/banco/" >> /etc/samba/smb.conf
-	sudo echo ""
-  
-  sudo echo "[guilherme]" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "path = /home/guilherme/" >> /etc/samba/smb.conf
-	sudo echo ""
-  sudo echo "[paulo]" >> /etc/samba/smb.conf
-	sudo echo "writeable = yes" >> /etc/samba/smb.conf
-	sudo echo "path = /home/paulo/" >> /etc/samba/smb.conf
-	sudo echo ""
-	sudo smbpasswd -a paulo
-	sudo smbpasswd -a facility
-  sudo smbpasswd -a uniloc
-  sudo smbpasswd -a guilherme
-	sudo service smbd restart
-        #sudo bash -c 'grep -v -E "^#|^;" /etc/samba/smb.conf_backup | grep . > /etc/samba/smb.conf'
-echo -e "${CYAN} SAMBA INSTALLED ${GREEN}Successfull"
-echo -e ""
-echo -e ""
-echo -e ""
 ################################################################################
 #                               KMS SERVER                                     #
 ################################################################################
@@ -306,15 +279,15 @@ echo -e ${WHITE}
     sudo ufw allow 22/tcp
     sudo ufw allow 69
     sudo ufw allow 53
-    sudo ufw allow in on ens130 to any port 69
+    sudo ufw allow in on enp1s0 to any port 69
     sudo ufw allow 80/tcp
-    sudo ufw allow in on ens130 to any port 80
+    sudo ufw allow in on enp1s0 to any port 80
     sudo ufw allow 443/tcp
-    sudo ufw allow in on ens130 to any port 443
+    sudo ufw allow in on enp1s0 to any port 443
     sudo ufw allow 2121/tcp
-    sudo ufw allow in on ens130 to any port 2121
+    sudo ufw allow in on enp1s0 to any port 2121
     sudo ufw allow 8080/tcp
-    sudo ufw allow in on ens130 to any port 8080
+    sudo ufw allow in on enp1s0 to any port 8080
     sudo ufw allow apache
     sudo ufw allow webmin
     sudo ufw allow php
