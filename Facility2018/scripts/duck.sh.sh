@@ -1,0 +1,2 @@
+echo url="https://www.duckdns.org/update?domains=facility&token=cc51a344-2530-4997-a05e-f0f53e800967&ip=" | curl -k -o ~/duckdns/duck.log -K -
+echo url="https://www.duckdns.org/update?domains=penka&token=cc51a344-2530-4997-a05e-f0f53e800967&ip=" | curl -k -o ~/duckdns/duck.log -K -
